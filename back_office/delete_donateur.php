@@ -1,25 +1,16 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "account";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+include 'db.php';
 
 $id = $_GET['id'];
 
 $deleteDonateur = "DELETE FROM donateur WHERE user_id=$id";
 $deleteUser = "DELETE FROM users WHERE id=$id";
 
-if ($conn->query($deleteDonateur) === TRUE && $conn->query($deleteUser) === TRUE) {
+if (mysqli_query($conn, $deleteDonateur) && mysqli_query($conn, $deleteUser)) {
     header("Location: users.php"); 
 } else {
-    echo "Error deleting record: " . $conn->error;
+    echo "Error deleting record: " .  mysqli_error($conn);
 }
 
-$conn->close();
+mysqli_close($conn);
 ?>

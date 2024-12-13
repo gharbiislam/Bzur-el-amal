@@ -1,10 +1,7 @@
 <?php
 session_start();
-$conn = mysqli_connect("localhost", "root", "", "account");
 
-if (!$conn) {
-    die("Connexion échouée : " . mysqli_connect_error());
-}
+include 'db.php';
 
 // Check if the user is a beneficiary
 $isBeneficiary = isset($_SESSION['role']) && $_SESSION['role'] === 'beneficiaire';

@@ -3,10 +3,7 @@
 session_start();
 
 
-$conn = mysqli_connect("localhost", "root", "", "account");
-if (!$conn) {
-    die("Connexion échouée : " . mysqli_connect_error());
-}
+include 'db.php';
 
 $message = "";
 

@@ -2,6 +2,7 @@
 session_start();
 include 'db.php';
 
+
 // Check if the user is logged in and is a beneficiary
 if (!isset($_SESSION['id']) || $_SESSION['role'] !== 'beneficiaire') {
     header("Location: login.php");

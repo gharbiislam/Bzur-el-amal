@@ -1,26 +1,17 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "account";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+include 'db.php';
 
 $query = "SELECT users.id, users.name, users.email, users.pass, users.adress, users.created_at, users.phone_number, donateur.type_don, donateur.date_dernier_don
           FROM users 
           JOIN donateur ON users.id = donateur.user_id
           WHERE users.role = 'donateur'";
-$donateurs = $conn->query($query);
+$donateurs = mysqli_query($conn, $query);
 
-$query = "SELECT users.id, users.name, users.email, users.pass, users.adress, users.created_at, users.phone_number, bénéficiaire.handicap_type, bénéficiaire.needs
+$query2 = "SELECT users.id, users.name, users.email, users.pass, users.adress, users.created_at, users.phone_number, bénéficiaire.handicap_type, bénéficiaire.needs
           FROM users 
           JOIN bénéficiaire ON users.id = bénéficiaire.user_id
           WHERE users.role = 'beneficiaire'";
-$beneficiaires = $conn->query($query);
+$beneficiaires = mysqli_query($conn, $query2);
 ?>
 
 <!DOCTYPE html>
@@ -51,8 +42,8 @@ $beneficiaires = $conn->query($query);
                 </tr>
             </thead>
             <tbody>
-                <?php if ($donateurs->num_rows > 0): ?>
-                    <?php while ($donateur = $donateurs->fetch_assoc()): ?>
+            <?php if (mysqli_num_rows($donateurs) > 0): ?>
+                <?php while ($donateur = mysqli_fetch_assoc($donateurs)): ?>
                         <tr>
                             <td><?= $donateur['id'] ?></td>
                             <td><?= $donateur['name'] ?></td>
@@ -67,7 +58,10 @@ $beneficiaires = $conn->query($query);
                                 <a href="edit_donateur.php?id=<?= $donateur['id'] ?>" class="btn btn-primary btn-sm">
                                     <i class="bi bi-pencil-square"></i>
                                 </a>
-                                <a href="delete_donateur.php?id=<?= $donateur['id'] ?>" class="btn btn-danger btn-sm">
+                                <a href="delete_donateur.php?id=<?= $donateur['id'] ?>"
+                                class="btn btn-danger btn-sm" 
+                                 onclick="return confirm('Are you sure you want to delete this donateur?');">
+                                
                                     <i class="bi bi-trash"></i>
                                 </a>
                             </td>
@@ -96,8 +90,10 @@ $beneficiaires = $conn->query($query);
                 </tr>
             </thead>
             <tbody>
-                <?php if ($beneficiaires->num_rows > 0): ?>
-                    <?php while ($beneficiaire = $beneficiaires->fetch_assoc()): ?>
+            ody>
+                <?php if (mysqli_num_rows($beneficiaires) > 0): ?>
+                    <?php while ($beneficiaire = mysqli_fetch_assoc($beneficiaires)): ?>
+                    
                         <tr>
                             <td><?= $beneficiaire['id'] ?></td>
                             <td><?= $beneficiaire['name'] ?></td>
@@ -139,5 +135,6 @@ $beneficiaires = $conn->query($query);
 </html>
 
 <?php
-$conn->close();
+mysqli_close($conn);
+
 ?>

@@ -1,27 +1,22 @@
 <!--login-->
 <?php
 session_start();
-
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "account";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
+include 'db.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
     $mdp = $_POST['mdp'];
 
-    $sql = "SELECT * FROM admins WHERE email = '$email' AND mdp = '$mdp'";
-    $result = $conn->query($sql);
+    $query = "SELECT * FROM admins WHERE email = '$email' AND mdp = '$mdp'";
+    $result = mysqli_query($conn, $query);
+
 
     if (!$result) {
-        die("Error: " . $conn->error);
+        die("Error: " . mysqli_error($conn));
     }
 
     if ($result->num_rows > 0) {
-        $admin = $result->fetch_assoc();
+        $admin = mysqli_fetch_assoc($result);
         $_SESSION['admins_name'] = $admin['name'];
         header("Location:dashboard.php");
         exit();
@@ -30,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-$conn->close();
+mysqli_close($conn);
 ?>
 
 
@@ -43,7 +38,6 @@ $conn->close();
 
     <script>
         $(document).ready(function() {
-            // Add validation rules to the form
             $("form").validate({
                 rules: {
                     email: {

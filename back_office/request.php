@@ -1,21 +1,19 @@
 <?php
-// Include the necessary file for database connection
-include('db.php'); // Make sure this file connects to the database
+include('db.php'); 
 
-// Fetch the requests data from the database, joining necessary tables
 $query = "
     SELECT r.id_request, u.name AS beneficiary_name, u.adress AS beneficiary_adress, u.phone_number AS beneficiary_phone, 
-           d.name AS equipment_name, r.date_demande, r.approved, r.dateReponse
+           d.name AS equipment_name, r.date_demande, r.approved, r.dateReponse,r.documents
     FROM requests r
     INNER JOIN users u ON r.user_id = u.id
     INNER JOIN dons_equipment d ON r.id_equipment = d.id_equipment
 ";
 
-$result = $conn->query($query);
+$res = mysqli_query($conn,$query);
 
 // Check if the query was successful
-if (!$result) {
-    die("Error in query: " . $conn->error);
+if (!$res) {
+    die("Error in query: " . mysqli_error($conn));
 }
 
 // Handle the status update
@@ -76,6 +74,7 @@ if (isset($_POST['delete_request'])) {
                     <th>Beneficiary Address</th>
                     <th>Phone Number</th>
                     <th>Equipment Name</th>
+                    <th>Documents</th>
                     <th>Request Date</th>
                     <th>Status</th>
                     <th>Date Response</th>
@@ -90,6 +89,9 @@ if (isset($_POST['delete_request'])) {
                         <td><?php echo $row['beneficiary_adress']; ?></td>
                         <td><?php echo $row['beneficiary_phone']; ?></td>
                         <td><?php echo $row['equipment_name']; ?></td>
+                        <td> <a href="uploads/<?php echo $row['documents']; ?>" target="_blank">
+            View Document
+        </a></td>
                         <td><?php echo $row['date_demande']; ?></td>
                         <td><?php echo $row['approved']; ?></td>
                         <td><?php echo $row['dateReponse']; ?></td>

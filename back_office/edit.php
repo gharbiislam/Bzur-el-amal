@@ -5,20 +5,12 @@ if (!isset($_SESSION['admins_name'])) {
     exit();
 }
 
-// Database connection
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "account";
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Fetch current admin details
+include 'db.php';
 $adminName = $_SESSION['admins_name'];
-$sql = "SELECT * FROM admins WHERE name = '$adminName'";
-$result = $conn->query($sql);
-
-if ($result->num_rows > 0) {
-    $admin = $result->fetch_assoc();
+$query = "SELECT * FROM admins WHERE name = '$adminName'";
+$res = mysqli_query($conn,$query);
+if ($res && mysqli_num_rows($res) > 0) {
+    $admin = mysqli_fetch_assoc($res);
 } else {
     echo "Admin not found!";
     exit();
@@ -30,18 +22,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $newEmail = $_POST['email'];
     $newPassword = $_POST['password'];
 
-    $updateSQL = "UPDATE admins SET name = '$newName', email = '$newEmail', mdp = '$newPassword' WHERE name = '$adminName'";
-    if ($conn->query($updateSQL) === TRUE) {
-        $_SESSION['admins_name'] = $newName; // Update session with new name
+    $updateAdmin = "UPDATE admins SET name = '$newName', email = '$newEmail', mdp = '$newPassword' WHERE name = '$adminName'";
+    if (mysqli_query($conn, $updateAdmin)) {
+        $_SESSION['admins_name'] = $newName; 
         echo "Profile updated successfully!";
-        header("Location: dashboard.php"); // Redirect to dashboard after successful update
+        header("Location: dashboard.php"); 
         exit();
     } else {
-        echo "Error updating profile: " . $conn->error;
+        echo "Error updating profile: " . mysqli_error($conn);
     }
 }
 
-$conn->close();
+mysqli_close(mysql: $conn);
 ?>
 
 <!DOCTYPE html>

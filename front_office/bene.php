@@ -17,6 +17,17 @@ $sql = "SELECT r.id_request, d.name AS equipment_name, r.date_demande, r.approve
         WHERE r.user_id = '$beneficiary_id'";
 
 $result = mysqli_query($conn, $sql);
+if (!$result) {
+    die('Error in SQL query: ' . mysqli_error($conn));
+}
+
+$sql2 = "SELECT id_request, categorie, montant, details, documents, approved, date_reponse
+         FROM request_financiere WHERE user_id='$beneficiary_id'";
+
+$result2 = mysqli_query($conn, $sql2);
+if (!$result2) {
+    die('Error in SQL query: ' . mysqli_error($conn));
+}
 ?>
 
 <!DOCTYPE html>
@@ -32,45 +43,85 @@ $result = mysqli_query($conn, $sql);
 
     <div class="container mt-5">
     <h1>Bienvenue dans l'interface bénéficiaire</h1>
+    <button><a href="demandeFinanace.php">Demande financiere</a></button>
+    <button><a href="equipment.php">Demande equipment</a></button>
 
-<h3>Mes demandes d'équipement</h3>
+    <h3>Mes demandes d'équipement</h3>
 
-        <?php
-        if (mysqli_num_rows($result) > 0) {
-            // Display the requests in a table
-            echo '<table class="table table-bordered mt-4">';
-            echo '<thead>';
+    <?php
+    if (mysqli_num_rows($result) > 0) {
+        // Display the requests in a table
+        echo '<table class="table table-bordered mt-4">';
+        echo '<thead>';
+        echo '<tr>';
+        echo '<th scope="col">ID Demande</th>';
+        echo '<th scope="col">Nom de l\'équipement</th>';
+        echo '<th scope="col">Date de la demande</th>';
+        echo '<th scope="col">Statut</th>';
+        echo '<th scope="col">Date Reponse</th>';
+        echo '<th scope="col">Documents</th>';
+        echo '</tr>';
+        echo '</thead>';
+        echo '<tbody>';
+
+        while ($row = mysqli_fetch_assoc($result)) {
             echo '<tr>';
-            echo '<th scope="col">ID Demande</th>';
-            echo '<th scope="col">Nom de l\'équipement</th>';
-            echo '<th scope="col">Date de la demande</th>';
-            echo '<th scope="col">Statut</th>';
-            echo '<th scope="col">Date Reponse</th>';
-            echo '<th scope="col">Documents</th>';
+            echo '<td>' . htmlspecialchars($row['id_request']) . '</td>';
+            echo '<td>' . htmlspecialchars($row['equipment_name']) . '</td>';
+            echo '<td>' . htmlspecialchars($row['date_demande']) . '</td>';
+            echo '<td>' . htmlspecialchars($row['approved']) . '</td>';
+            echo '<td>' . htmlspecialchars($row['dateReponse']) . '</td>';
+            echo '<td><a href="' . htmlspecialchars($row['documents']) . '" target="_blank">Voir le document</a></td>';
             echo '</tr>';
-            echo '</thead>';
-            echo '<tbody>';
-
-            while ($row = mysqli_fetch_assoc($result)) {
-                echo '<tr>';
-                echo '<td>' . htmlspecialchars($row['id_request']) . '</td>';
-                echo '<td>' . htmlspecialchars($row['equipment_name']) . '</td>';
-                echo '<td>' . htmlspecialchars($row['date_demande']) . '</td>';
-                echo '<td>' . htmlspecialchars($row['approved']) . '</td>';
-                echo '<td>' . htmlspecialchars($row['dateReponse']) . '</td>';
-                echo '<td><a href="' . htmlspecialchars($row['documents']) . '" target="_blank">Voir le document</a></td>';
-                echo '</tr>';
-            }
-
-            echo '</tbody>';
-            echo '</table>';
-        } else {
-            echo '<div class="alert alert-info">Aucune demande trouvée.</div>';
         }
 
-        // Close the database connection
-        mysqli_close($conn);
-        ?>
+        echo '</tbody>';
+        echo '</table>';
+    } else {
+        echo '<div class="alert alert-info">Aucune demande trouvée.</div>';
+    }
+    ?>
+
+    <h3>Mes demandes financières</h3>
+
+    <?php
+    if (mysqli_num_rows($result2) > 0) {
+        // Display the requests in a table
+        echo '<table class="table table-bordered mt-4">';
+        echo '<thead>';
+        echo '<tr>';
+        echo '<th scope="col">ID Demande</th>';
+        echo '<th scope="col">Catégorie</th>';
+        echo '<th scope="col">Montant</th>';
+        echo '<th scope="col">Documents</th>';
+        echo '<th scope="col">Détails</th>';
+        echo '<th scope="col">Statut</th>';
+        echo '<th scope="col">Date Réponse</th>';
+        echo '</tr>';
+        echo '</thead>';
+        echo '<tbody>';
+
+        while ($row = mysqli_fetch_assoc($result2)) {
+            echo '<tr>';
+            echo '<td>' . htmlspecialchars($row['id_request']) . '</td>';
+            echo '<td>' . htmlspecialchars($row['categorie']) . '</td>';
+            echo '<td>' . htmlspecialchars($row['montant']) . '</td>';
+            echo '<td><a href="' . htmlspecialchars($row['documents']) . '" target="_blank">Voir le document</a></td>';
+            echo '<td>' . htmlspecialchars($row['details']) . '</td>';
+            echo '<td>' . htmlspecialchars($row['approved']) . '</td>';
+            echo '<td>' . htmlspecialchars($row['date_reponse']) . '</td>';
+            echo '</tr>';
+        }
+
+        echo '</tbody>';
+        echo '</table>';
+    } else {
+        echo '<div class="alert alert-info">Aucune demande trouvée.</div>';
+    }
+
+    // Close the database connection
+    mysqli_close($conn);
+    ?>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

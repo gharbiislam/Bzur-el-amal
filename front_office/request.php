@@ -1,10 +1,9 @@
 <?php
 session_start();
-$conn = mysqli_connect("localhost", "root", "", "account");
+include 'db.php';
+include 'header.php';
 
-if (!$conn) {
-    die("Connexion échouée : " . mysqli_connect_error());
-}
+
 
 // Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -36,11 +35,11 @@ if (isset($_POST['submit_request'])) {
     if (move_uploaded_file($_FILES['document']['tmp_name'], $target_file)) {
         $date_demande = date('Y-m-d H:i:s'); // Current date and time
 
-        // Update address and phone number in the users table
-        $address = mysqli_real_escape_string($conn, $_POST['adress']);
+        // Update adress and phone number in the users table
+        $adress = mysqli_real_escape_string($conn, $_POST['adress']);
         $phone_number = mysqli_real_escape_string($conn, $_POST['phone_number']);
         
-        $update_user_query = "UPDATE users SET adress = '$address', phone_number = '$phone_number' WHERE id = '$beneficiary_id'";
+        $update_user_query = "UPDATE users SET adress = '$adress', phone_number = '$phone_number' WHERE id = '$beneficiary_id'";
         
         if (mysqli_query($conn, $update_user_query)) {
             // Insert request into the requests table
@@ -83,8 +82,8 @@ if (isset($_POST['submit_request'])) {
             <form method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="equipment_id" value="<?= htmlspecialchars($equipment['id_equipment']); ?>">
                 <div class="mb-3">
-                    <label for="address" class="form-label">Adresse du bénéficiaire:</label>
-                    <input type="text" class="form-control" name="address" id="address" value="<?= htmlspecialchars($beneficiary['adress']); ?>" required>
+                    <label for="adress" class="form-label">Adresse du bénéficiaire:</label>
+                    <input type="text" class="form-control" name="adress" id="adress" value="<?= htmlspecialchars($beneficiary['adress']); ?>" required>
                 </div>
                 <div class="mb-3">
                     <label for="phone_number" class="form-label">Numéro de téléphone du bénéficiaire:</label>

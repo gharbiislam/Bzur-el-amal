@@ -5,16 +5,7 @@ if (!isset($_SESSION['admins_name'])) {
     exit();
 }
 
-// Database connection
-$servername = "localhost"; // Your server name
-$username = 'root'; // Your database username
-$password = ""; // Your database password
-$dbname = "account"; // Your database name
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+include 'db.php';
 
 // Fetch counts of donations
 $sql_financial = "SELECT COUNT(*) as total_financial FROM dons_financieres";

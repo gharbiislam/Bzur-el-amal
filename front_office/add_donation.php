@@ -33,19 +33,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $etat = $_POST['etat'];
     $date_don = $_POST['date_don'];
 
-    // Database connection
-    $servername = "localhost";  // Update with your server details
-    $username = "root";         // Update with your MySQL username
-    $password = "";             // Update with your MySQL password
-    $dbname = "your_database";  // Update with your database name
+    include 'db.php';
 
-    // Create connection
-    $conn = new mysqli($servername, $username, $password, $dbname);
-
-    // Check connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
 
     // Insert data into dons_equipment table
     $sql = "INSERT INTO dons_equipment (id_donateur, quantite, etat, date_don) 
