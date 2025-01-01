@@ -1,17 +1,13 @@
 <?php
-// Start the session
 session_start();
 
-// Database connection
 include 'db.php';
 
 
-// Handle deletion if an ID is provided in the URL
 if (isset($_GET['id'])) {
-    $id_equipment = intval($_GET['id']); // Make sure to sanitize the input
+    $id_equipment = intval($_GET['id']);
     $delete_sql = "DELETE FROM dons_equipment WHERE id_equipment = ?";
     
-    // Prepare and execute the statement
     if ($stmt = mysqli_prepare($conn, $delete_sql)) {
         mysqli_stmt_bind_param($stmt, 'i', $id_equipment);
         mysqli_stmt_execute($stmt);
@@ -19,16 +15,14 @@ if (isset($_GET['id'])) {
     }
 }
 
-// Handle availability change if an ID is provided in the URL
 if (isset($_GET['toggle_id'])) {
-    $toggle_id = intval($_GET['toggle_id']); // Sanitize input
+    $toggle_id = intval($_GET['toggle_id']); 
     $availability_sql = "UPDATE dons_equipment SET disponabilite = CASE 
                             WHEN disponabilite = 'disponible' THEN 'indisponible' 
                             ELSE 'disponible' 
                         END 
                         WHERE id_equipment = ?";
     
-    // Prepare and execute the statement
     if ($stmt = mysqli_prepare($conn, $availability_sql)) {
         mysqli_stmt_bind_param($stmt, 'i', $toggle_id);
         mysqli_stmt_execute($stmt);
@@ -36,12 +30,10 @@ if (isset($_GET['toggle_id'])) {
     }
 }
 
-// Handle approval if an ID is provided in the URL
 if (isset($_GET['approve_id'])) {
-    $approve_id = intval($_GET['approve_id']); // Sanitize input
+    $approve_id = intval($_GET['approve_id']); 
     $approve_sql = "UPDATE dons_equipment SET approve = 'oui' WHERE id_equipment = ?";
     
-    // Prepare and execute the statement
     if ($stmt = mysqli_prepare($conn, $approve_sql)) {
         mysqli_stmt_bind_param($stmt, 'i', $approve_id);
         mysqli_stmt_execute($stmt);
@@ -49,7 +41,6 @@ if (isset($_GET['approve_id'])) {
     }
 }
 
-// Fetch all the equipment donations along with the donor's name
 $sql = "
     SELECT 
         dons_equipment.*, 
@@ -63,7 +54,6 @@ $sql = "
 ";
 $result = mysqli_query($conn, $sql);
 
-// Close the connection
 mysqli_close($conn);
 ?>
 
@@ -80,29 +70,25 @@ mysqli_close($conn);
     <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 
     <script>
-        // Initialize DataTables
         $(document).ready(function() {
             $('#equipmentTable').DataTable();
         });
 
-        // Function to confirm deletion
         function confirmDelete(id) {
             if (confirm("Êtes-vous sûr de vouloir supprimer cet équipement ?")) {
-                window.location.href = '?id=' + id; // Redirect to the same page with the id to delete
+                window.location.href = '?id=' + id; 
             }
         }
 
-        // Function to toggle availability
         function toggleAvailability(id) {
             if (confirm("Êtes-vous sûr de vouloir changer la disponibilité de cet équipement ?")) {
-                window.location.href = '?toggle_id=' + id; // Redirect to the same page with the id to toggle availability
+                window.location.href = '?toggle_id=' + id; 
             }
         }
 
-        // Function to approve equipment
         function approveEquipment(id) {
             if (confirm("Êtes-vous sûr de vouloir approuver cet équipement ?")) {
-               window.location.href = '?approve_id=' + id; // Redirect to the same page with the id to approve
+               window.location.href = '?approve_id=' + id; 
             }
         }
     </script>

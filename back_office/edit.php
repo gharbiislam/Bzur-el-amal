@@ -16,7 +16,6 @@ if ($res && mysqli_num_rows($res) > 0) {
     exit();
 }
 
-// Update profile if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $newName = $_POST['name'];
     $newEmail = $_POST['email'];

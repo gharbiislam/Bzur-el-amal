@@ -1,4 +1,3 @@
-<!-- sign Up page -->
 
 <?php
 session_start();
@@ -61,35 +60,38 @@ mysqli_close($conn);
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <link rel="stylesheet" href="../assets/css/style.css">
+
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
 </head>
 
-<body class="container">
+<body class="d-md-flex">
+    <div class="col-md-6 p-5">
     <h1>Inscription</h1>
     <form id="signupForm" method="post" class="">
-        <div class="col-md-4">
+        <div class=" mb-3">
             <label for="name" class="form-label">Nom:</label>
-            <input type="text" id="name" name="name"  required>
+            <input type="text" id="name" name="name" class="form-control"  required>
         </div>
-        <div class="col-md-4">
+        <div class=" mb-3">
             <label for="email" class="form-label">Email:</label>
-            <input type="email" id="email" name="email"   required>
+            <input type="email" id="email" name="email"  class="form-control" required>
         </div>
-        <div class="col-md-4">
+        <div class=" mb-3">
             <label for="pass" class="form-label">Mot de passe:</label>
-            <input type="password"   id="pass" name="pass" required>
+            <input type="password"   id="pass" name="pass"class="form-control" required>
         </div>
-        <div class="col-md-4">
+        <div class=" mb-3">
             <label for="phone" class="form-label">Téléphone:</label>
-            <input type="number" id="phone" name="phone"   required>
+            <input type="number" id="phone" name="phone" class="form-control"  required>
         </div>
-        <div class="col-md-4">
+        <div class=" mb-3">
             <label for="adress" class="form-label">Adresse:</label>
-            <input type="text" id="adress" name="adress"   required>
+            <input type="text" id="adress" name="adress" class="form-control"  required>
         </div>
-        <div class="col-md-4">
+        <div class=" mb-3">
             <label for="role" class="form-label">Rôle:</label>
-            <select id="role" name="role"   required onchange="toggleBeneficiaireSection()">
+            <select id="role" name="role"  class="form-control" required onchange="toggleBeneficiaireSection()">
                 <option value="" disabled selected>choix votre role</option>
                 <option value="donateur">Donateur</option>
                 <option value="beneficiaire">Bénéficiaire</option>
@@ -97,23 +99,33 @@ mysqli_close($conn);
         </div>
         <!-- Section for Beneficiaire -->
         <div class="d-none" id="beneficaireSection">
+            <div class="mb-3">
             <label for="handicap" class="form-label">Type de handicap:</label>
-            <select name="handicap" id="handicap"  >
+            <select name="handicap" id="handicap" class="form-control" >
                 <option value="" disabled selected>choix type d'handicap</option>
                 <option value="h_moteur">Handicap Moteur</option>
                 <option value="h_audictive">Handicap Auditif</option>
                 <option value="h_multiple">Handicap Multiple</option>
                 <option value="autre">Autre</option>
-            </select>
+            </select></div>
+            <div class="mb-3">
             <label for="besoin" class="form-label">Besoins:</label>
-            <input type="text" id="besoin" name="besoin"  >
+            <input type="text" id="besoin" name="besoin"  class="form-control"></div>
+            <div class="mb-3">
             <label for="doc" class="form-label">Document:</label>
-            <input type="file" id="doc" name="doc"  >
+            <input type="file" id="doc" name="doc"  class="form-control"></div>
         </div>
 
         <input type="submit" value="S'inscrire" class="btn btn-primary">
     </form>
-
+    </div>
+    <div class="p-5 col-md-6 text-center  " id="connexion" style="background-image: url('../assets/images/bg/img2.jpeg');" >
+      <h1>Bienvenu au Bzure El Amal</h1>
+        <p>
+        Lorem ipsum dolor sit amet,a? Aliquid maiores modi culpa deserunt fugiat assumenda neque temporibus atque nisi soluta?
+</p>
+<a href="login.php" class="nav-link" id="btn2"> login</a>
+    </div>
     <script>
         function toggleBeneficiaireSection() {
             var role = document.getElementById('role').value;

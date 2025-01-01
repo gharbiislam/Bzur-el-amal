@@ -11,39 +11,32 @@ $query = "
 
 $res = mysqli_query($conn,$query);
 
-// Check if the query was successful
 if (!$res) {
     die("Error in query: " . mysqli_error($conn));
 }
 
-// Handle the status update
 if (isset($_POST['update_status'])) {
     $id_request = $_POST['id_request'];
     $status = $_POST['status'];
-    $dateReponse = date('Y-m-d H:i:s'); // Current date and time
+    $dateReponse = date('Y-m-d H:i:s'); 
 
-    // Update the status and dateReponse in the database
     $update_query = "UPDATE requests SET approved = ?, dateReponse = ? WHERE id_request = ?";
     $stmt = $conn->prepare($update_query);
     $stmt->bind_param('ssi', $status, $dateReponse, $id_request);
     $stmt->execute();
     
-    // Redirect back to the same page to see the updated status
     header("Location: " . $_SERVER['PHP_SELF']);
     exit();
 }
 
-// Handle the delete request
 if (isset($_POST['delete_request'])) {
     $id_request = $_POST['id_request'];
 
-    // Delete the request from the database
     $delete_query = "DELETE FROM requests WHERE id_request = ?";
     $stmt = $conn->prepare($delete_query);
     $stmt->bind_param('i', $id_request);
     $stmt->execute();
 
-    // Redirect back to the same page after deleting the request
     header("Location: " . $_SERVER['PHP_SELF']);
     exit();
 }
@@ -56,10 +49,8 @@ if (isset($_POST['delete_request'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Request Page</title>
 
-    <!-- Include DataTables CSS -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
 
-    <!-- Bootstrap CSS (if not already included) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
 </head>
@@ -82,7 +73,7 @@ if (isset($_POST['delete_request'])) {
                 </tr>
             </thead>
             <tbody>
-                <?php while($row = $result->fetch_assoc()): ?>
+                <?php while($row = $res->fetch_assoc()): ?>
                     <tr>
                         <td><?php echo $row['id_request']; ?></td>
                         <td><?php echo $row['beneficiary_name']; ?></td>
@@ -96,7 +87,6 @@ if (isset($_POST['delete_request'])) {
                         <td><?php echo $row['approved']; ?></td>
                         <td><?php echo $row['dateReponse']; ?></td>
                         <td>
-                            <!-- Status Update Form -->
                             <form method="POST" action="" class="mb-2">
                                 <input type="hidden" name="id_request" value="<?php echo $row['id_request']; ?>">
                                 <select name="status" class="form-select" required>
@@ -108,7 +98,6 @@ if (isset($_POST['delete_request'])) {
                                 <button type="submit" name="update_status" class="btn btn-primary btn-sm mt-2">Update Status</button>
                             </form>
 
-                            <!-- Delete Request Form -->
                             <form method="POST" action="" class="mb-2" onsubmit="return confirmDelete()">
     <input type="hidden" name="id_request" value="<?php echo $row['id_request']; ?>">
     <button type="submit" name="delete_request" class="btn btn-danger btn-sm">Delete</button>
@@ -126,12 +115,10 @@ if (isset($_POST['delete_request'])) {
         </table>
     </div>
 
-    <!-- Include jQuery and DataTables JS -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
 
     <script>
-        // Initialize the DataTable
         $(document).ready(function() {
             $('#requestTable').DataTable();
         });

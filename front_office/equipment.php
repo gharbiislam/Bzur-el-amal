@@ -3,37 +3,31 @@ session_start();
 
 include 'db.php';
 
-// Check if the user is a beneficiary
 $isBeneficiary = isset($_SESSION['role']) && $_SESSION['role'] === 'beneficiaire';
 
 $filters = [];
 $query = "SELECT * FROM dons_equipment WHERE 1=1";
 
-// Filtrage par disponibilité
 if (isset($_GET['disponabilite']) && !empty($_GET['disponabilite'])) {
     $disponabilite = mysqli_real_escape_string($conn, $_GET['disponabilite']);
     $filters[] = "disponabilite = '$disponabilite'";
 }
 
-// Filtrage par type d'équipement
 if (isset($_GET['type_equipment']) && !empty($_GET['type_equipment'])) {
     $type_equipment = mysqli_real_escape_string($conn, $_GET['type_equipment']);
     $filters[] = "type_equipment = '$type_equipment'";
 }
 
-// Filtrage par état
 if (isset($_GET['etat']) && !empty($_GET['etat'])) {
     $etat = mysqli_real_escape_string($conn, $_GET['etat']);
     $filters[] = "etat = '$etat'";
 }
 
-// Appliquer les filtres au SQL
 if (count($filters) > 0) {
     $query .= " AND " . implode(" AND ", $filters);
 }
 
-// Filter for approved equipment
-$query .= " AND approve = 'oui'"; // Only select approved equipment
+$query .= " AND approve = 'oui'";
 
 $result = mysqli_query($conn, $query);
 
@@ -69,7 +63,6 @@ if (!$result) {
 
     <h1 class="mt-4 pt-5">Liste des équipements médicaux</h1>
 
-    <!-- Formulaire de filtre -->
     <form method="GET" class="mb-4">
         <div class="row">
             <div class="col-md-4">
@@ -106,7 +99,6 @@ if (!$result) {
         </div>
     </form>
 
-    <!-- Grille des équipements -->
     <div class="row">
         <?php while ($row = mysqli_fetch_assoc($result)): ?>
             <div class="col-md-4 mb-4">
@@ -136,7 +128,6 @@ if (!$result) {
         <?php endwhile; ?>
     </div>
 
-    <!-- Detailed Section -->
     <div id="details-section">
         <div class="row">
             <div class="col-md-6">
@@ -157,9 +148,7 @@ if (!$result) {
     <script>
     function showDetails(product) {
         const detailsSection = document.getElementById('details-section');
-        detailsSection.style.display = 'block'; // Show the details section
-
-        // Populate the details
+        detailsSection.style.display = 'block'; 
         detailsSection.querySelector('.details-image').src = product.image_path || 'default.jpg';
         detailsSection.querySelector('.details-name').innerText = product.name;
         detailsSection.querySelector('.details-type').innerText = 'Type: ' + product.type_equipment;
@@ -174,7 +163,6 @@ if (!$result) {
 </html>
 
 <?php
-// Close connection
 mysqli_close($conn);
 ?>
 

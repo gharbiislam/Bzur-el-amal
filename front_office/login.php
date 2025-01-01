@@ -25,9 +25,7 @@ if (isset($_POST['email']) && isset($_POST['pass'])) {
         echo "Email ou mot de passe incorrect.";
     }
 } 
-else {
-    echo "Veuillez remplir le formulaire.";
-}
+
 mysqli_close($conn);
 ?><!DOCTYPE html>
 <html lang="fr">
@@ -36,16 +34,24 @@ mysqli_close($conn);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Page de connexion</title>
     <link rel="stylesheet" href="bootstrap.min.css">
-    
-    <!-- Add jQuery and jQuery Validate -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
 </head>
-<body class="container">
-    <h1>Connexion</h1>
+<body class=" d-md-flex ">
+    <div class="p-5 col-md-6  text-center  " id="connexion" style="background-image: url('../assets/images/bg/img2.jpeg');" >
+      <h1>Bienvenu au Bzure El Amal</h1>
+        <p>
+        Lorem ipsum dolor sit amet,a? Aliquid maiores modi culpa deserunt fugiat assumenda neque temporibus atque nisi soluta?
+</p>
+<a href="signUp.php" class="  nav-link" id="btn2"> Sign Up</a>
+    </div>
+    <div class="p-5 col-md-6">
+    <h1>Connecter A votre Compte</h1>
     <form id="loginForm" action="" method="post">
         <div class="mb-3">
-            <label for="email" class="form-label">Email:</label>
+            <label for="email" class="form-label">Votre Adresse mail</label>
             <input type="email" id="email" name="email" class="form-control" required>
         </div>
         <div class="mb-3">
@@ -53,14 +59,13 @@ mysqli_close($conn);
             <input type="password" id="pass" name="pass" class="form-control" required>
         </div>
         <button type="submit" class="btn btn-primary">Se connecter</button>
-    </form>
+    </form></div>
 
     <script src="bootstrap.bundle.min.js"></script>
     <script src="bootstrap.min.js"></script>
 
     <script>
         $(document).ready(function() {
-            // Validate the form
             $("#loginForm").validate({
                 rules: {
                     email: {
@@ -83,7 +88,7 @@ mysqli_close($conn);
                     }
                 },
                 submitHandler: function(form) {
-                    form.submit();  // Submit the form when valid
+                    form.submit();  
                 }
             });
         });

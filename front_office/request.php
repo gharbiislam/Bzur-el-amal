@@ -5,44 +5,36 @@ include 'header.php';
 
 
 
-// Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $equipment_id = mysqli_real_escape_string($conn, $_POST['equipment_id']);
-    $beneficiary_id = $_SESSION['id']; // Assuming the beneficiary ID is stored in the session
+    $beneficiary_id = $_SESSION['id']; 
 
-    // Fetch equipment details
     $equipment_query = "SELECT * FROM dons_equipment WHERE id_equipment = '$equipment_id'";
     $equipment_result = mysqli_query($conn, $equipment_query);
     $equipment = mysqli_fetch_assoc($equipment_result);
 
-    // Fetch beneficiary details
-    $beneficiary_query = "SELECT * FROM users WHERE id = '$beneficiary_id'";
+   $beneficiary_query = "SELECT * FROM users WHERE id = '$beneficiary_id'";
     $beneficiary_result = mysqli_query($conn, $beneficiary_query);
     $beneficiary = mysqli_fetch_assoc($beneficiary_result);
 } else {
-    // Redirect or show an error if accessed directly
     header("Location: equipment.php");
     exit;
 }
 
-// Handle file upload and request submission
 if (isset($_POST['submit_request'])) {
     $document = $_FILES['document']['name'];
     $target_dir = "uploads/";
     $target_file = $target_dir . basename($document);
     
-    // Move uploaded file to the target directory
     if (move_uploaded_file($_FILES['document']['tmp_name'], $target_file)) {
-        $date_demande = date('Y-m-d H:i:s'); // Current date and time
+        $date_demande = date('Y-m-d H:i:s');
 
-        // Update adress and phone number in the users table
         $adress = mysqli_real_escape_string($conn, $_POST['adress']);
         $phone_number = mysqli_real_escape_string($conn, $_POST['phone_number']);
         
         $update_user_query = "UPDATE users SET adress = '$adress', phone_number = '$phone_number' WHERE id = '$beneficiary_id'";
         
         if (mysqli_query($conn, $update_user_query)) {
-            // Insert request into the requests table
             $insert_request_query = "INSERT INTO requests (user_id, id_equipment, date_demande, approved, documents) VALUES ('$beneficiary_id', '$equipment_id', '$date_demande', 'En attente', '$target_file')";
             
             if (mysqli_query($conn, $insert_request_query)) {
@@ -98,18 +90,15 @@ if (isset($_POST['submit_request'])) {
         </div>
     </div>
 
-    <!-- Display success or error messages -->
     <?php
     if (isset($_SESSION['message'])) {
         echo '<div class="alert alert-success">' . $_SESSION['message'] . '</div>';
-        unset($_SESSION['message']); // Clear the message after displaying it
-    }
+        unset($_SESSION['message']);}
     if (isset($_SESSION['error'])) {
         echo '<div class="alert alert-danger">' . $_SESSION['error'] . '</div>';
-        unset($_SESSION['error']); // Clear the error after displaying it
+        unset($_SESSION['error']); 
     }
 
-    // Close connection
     mysqli_close($conn);
     ?>
 </body>

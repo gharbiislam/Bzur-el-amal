@@ -24,11 +24,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $updateSql = "UPDATE users SET name = '$name', email = '$email', pass = '$pass', adress = '$adress', phone_number = '$phone' WHERE id = '$userId'";
 
     if (mysqli_query($conn, $updateSql)) {
-        // Update session variables with the new data
         $_SESSION['name'] = $name;
         $_SESSION['email'] = $email;
     
-        // Redirect to avoid form resubmission
         header("Location: donateur.php");
         exit;
     } else {

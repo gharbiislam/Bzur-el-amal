@@ -1,3 +1,27 @@
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $id_donateur = $_POST['id_donateur'];
+    $quantite = $_POST['quantite'];
+    $etat = $_POST['etat'];
+    $date_don = $_POST['date_don'];
+
+    include 'db.php';
+
+
+    $sql = "INSERT INTO dons_equipment (id_donateur, quantite, etat, date_don) 
+            VALUES ('$id_donateur', '$quantite', '$etat', '$date_don')";
+$res=mysqli_query($conn,$sql);
+    if (mysqli_query($conn, $res)) {
+        echo "New donation added successfully!";
+    } else {
+        echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+    }
+
+    mysqli_close(mysql: $conn);
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,29 +48,3 @@
     </form>
 </body>
 </html>
-<?php
-// Check if the form is submitted
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Retrieve form data
-    $id_donateur = $_POST['id_donateur'];
-    $quantite = $_POST['quantite'];
-    $etat = $_POST['etat'];
-    $date_don = $_POST['date_don'];
-
-    include 'db.php';
-
-
-    // Insert data into dons_equipment table
-    $sql = "INSERT INTO dons_equipment (id_donateur, quantite, etat, date_don) 
-            VALUES ('$id_donateur', '$quantite', '$etat', '$date_don')";
-
-    if ($conn->query($sql) === TRUE) {
-        echo "New donation added successfully!";
-    } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
-    }
-
-    // Close the connection
-    $conn->close();
-}
-?>

@@ -7,7 +7,6 @@ if (!isset($_SESSION['admins_name'])) {
 
 include 'db.php';
 
-// Fetch counts of donations
 $sql_financial = "SELECT COUNT(*) as total_financial FROM dons_financieres";
 $result_financial = $conn->query($sql_financial);
 $total_financial = $result_financial->fetch_assoc()['total_financial'];
@@ -16,7 +15,6 @@ $sql_equipment = "SELECT COUNT(*) as total_equipment FROM dons_equipment";
 $result_equipment = $conn->query($sql_equipment);
 $total_equipment = $result_equipment->fetch_assoc()['total_equipment'];
 
-// Fetch counts of users and requests
 $sql_users = "SELECT COUNT(*) as total_users FROM users";
 $result_users = $conn->query($sql_users);
 $total_users = $result_users->fetch_assoc()['total_users'];
@@ -33,7 +31,6 @@ $sql_requests = "SELECT COUNT(*) as total_requests FROM requests";
 $result_requests = $conn->query($sql_requests);
 $total_requests = $result_requests->fetch_assoc()['total_requests'];
 
-// Fetch donation data for charts
 $sql_donations = "SELECT type_equipment, COUNT(*) as count FROM dons_equipment GROUP BY type_equipment ";
 $result_donations = $conn->query($sql_donations);
 $donation_data = [];
@@ -76,11 +73,10 @@ $conn->close();
     .dropdown-menu-dark {
       background-color: #343a40;
     }
-    /* Chart Container */
     .chart-container {
       position: relative;
-      width: 50%; /* Adjust width as needed */
-      margin: auto; /* Center the chart */
+      width: 50%; 
+      margin: auto; 
     }
   </style>
 </head>
@@ -115,7 +111,6 @@ $conn->close();
             </li>
           </ul>
           
-          <!-- Profile Dropdown -->
           <div class="dropdown mt-4 ms-3">
             <a href="#" class="d-flex text-decoration-none dropdown-toggle" id="dropdownUser " data-bs-toggle="dropdown" aria-expanded="false">
               <span><?php echo htmlspecialchars($_SESSION['admins_name']); ?></span> 
@@ -128,7 +123,6 @@ $conn->close();
         </div>
       </nav>
 
-      <!-- Main content -->
       <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <h1 class="h2">Dashboard</h1>
@@ -137,7 +131,6 @@ $conn->close();
           </button>
         </div>
 
-        <!-- Info Boxes -->
         <div class="row">
           <div class="col-md-4">
             <div class="card text-white bg-primary mb-3">
@@ -170,18 +163,15 @@ $conn->close();
           </div>
         </div>
 
-        <!-- Charts -->
-        <!-- Doughnut Chart for Donations -->
+        
         <div class="chart-container">
           <canvas id="donationChart"></canvas>
         </div>
 
-        <!-- Bar Chart for Donators and Beneficiaries -->
         <div class="chart-container">
           <canvas id="donatorBeneficiaryChart"></canvas>
         </div>
 
-        <!-- Line Chart for Donations per Week -->
         <div class="chart-container">
           <canvas id="donationsPerWeekChart"></canvas>
         </div>
@@ -191,7 +181,6 @@ $conn->close();
   </div>
 
   <script>
-    // Doughnut Chart for Donations Types (Financial vs Equipment)
     var ctx = document.getElementById('donationChart').getContext('2d');
     var donationChart = new Chart(ctx, {
       type: 'doughnut',
@@ -209,7 +198,6 @@ $conn->close();
       }
     });
 
-    // Bar Chart for Donators vs Beneficiaries
     var ctx2 = document.getElementById('donatorBeneficiaryChart').getContext('2d');
     var donatorBeneficiaryChart = new Chart(ctx2, {
       type: 'bar',
@@ -217,14 +205,13 @@ $conn->close();
         labels: ['Donors', 'Beneficiaries'],
         datasets: [{
           label: 'User Breakdown',
-          data: [<?php echo $total_donateur; ?>, <?php echo $total_bene; ?>],  // Adjust as needed
+          data: [<?php echo $total_donateur; ?>, <?php echo $total_bene; ?>],
           backgroundColor: ['#36b9cc', '#f6c23e'],
           borderWidth: 1
         }]
       }
     });
 
-    // Line Chart for Donations per Week
     var ctx3 = document.getElementById('donationsPerWeekChart').getContext('2d');
     var donationsPerWeekChart = new Chart(ctx3, {
       type: 'line',
@@ -232,12 +219,12 @@ $conn->close();
         labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
         datasets: [{
           label: 'Financial Donations',
-          data: [10, 15, 12, 7, 18, 9, 5],  // Replace with dynamic data from DB
+          data: [10, 15, 12, 7, 18, 9, 5],  
           borderColor: '#4e73df',
           fill: false
         }, {
           label: 'Equipment Donations',
-          data: [5, 7, 8, 4, 6, 3, 4],  // Replace with dynamic data from DB
+          data: [5, 7, 8, 4, 6, 3, 4],  
           borderColor: '#1cc88a',
           fill: false
         }]

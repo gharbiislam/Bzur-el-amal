@@ -2,11 +2,9 @@
 include 'db.php';
 include 'header.php';
 
-// Check if categorie is passed via the query string
 if (isset($_GET['categorie'])) {
     $categorie = $_GET['categorie'];
 
-    // Retrieve data based on the categorie
     if ($categorie == 'equipments') {
         $title = "Equipments";
         $image = "http://localhost/dashboard/pfa/assets/equipmen.jpeg";
@@ -17,7 +15,6 @@ if (isset($_GET['categorie'])) {
         $title = "Soins Medicaux";
         $image = "http://localhost/dashboard/pfa/assets/soins.jpg";
     } else {
-        // Default fallback
         $title = "categorie Not Found";
         $image = "#";
     }
@@ -45,7 +42,6 @@ if (isset($_GET['categorie'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $title; ?></title>
     <link rel="stylesheet" href="bootstrap.min.css">
-    <!-- Include Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
@@ -59,7 +55,6 @@ if (isset($_GET['categorie'])) {
             </div>
             
 </div>
-            <!-- Add Canvas for Doughnut Chart -->
             <div class="col-4 pt-5">
                 <canvas id="donutChart" width="400" height="400"></canvas>
                 <h5>Amount Collected: <?php echo number_format($total_donations, 2); ?> </h5>
@@ -68,7 +63,6 @@ if (isset($_GET['categorie'])) {
             
             </div>
 </div>
-            <!-- Chart.js Script -->
             <script>
                 var ctx = document.getElementById('donutChart').getContext('2d');
                 var myChart = new Chart(ctx, {
