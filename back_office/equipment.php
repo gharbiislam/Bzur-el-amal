@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 include 'db.php';
 
@@ -63,40 +62,31 @@ mysqli_close($conn);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Liste des équipements donnés</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha384-3g2g4n9eQq8D5Q6gL9qZg6hJb9w3kQ5kz3H5dR9m+0Cj+0R5F5F5b5G5c5F5g5F" crossorigin="anonymous">
-    <link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+        <!-- Include the main Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
 
-    <script>
-        $(document).ready(function() {
-            $('#equipmentTable').DataTable();
-        });
-
-        function confirmDelete(id) {
-            if (confirm("Êtes-vous sûr de vouloir supprimer cet équipement ?")) {
-                window.location.href = '?id=' + id; 
-            }
-        }
-
-        function toggleAvailability(id) {
-            if (confirm("Êtes-vous sûr de vouloir changer la disponibilité de cet équipement ?")) {
-                window.location.href = '?toggle_id=' + id; 
-            }
-        }
-
-        function approveEquipment(id) {
-            if (confirm("Êtes-vous sûr de vouloir approuver cet équipement ?")) {
-               window.location.href = '?approve_id=' + id; 
-            }
-        }
-    </script>
 </head>
-<body class="container">
-    <h1 class="my-4">Liste des équipements donnés</h1>
-    <table id="equipmentTable" class="display table table-striped table-bordered">
-        <thead>
+<body>
+<div class="d-flex flex-column flex-lg-row ">
+        <div class="col-lg-2 d-none d-lg-block ">
+            <?php
+            include('nav.php');
+
+            ?>
+        </div>
+    <div class=" px-2 col-lg-10">
+    <h2 class="my-4 " id="back-title">Liste des équipements donnés</h2>
+    <div class="table-responsive">
+
+                <table class="table table-striped table-bordered nowrap " style="width: 100%;" id="donateursTable">
+                    <thead>
             <tr>
                 <th>Nom du Donateur</th>
                 <th>Nom de l'Équipement</th>
@@ -132,24 +122,50 @@ mysqli_close($conn);
                     <td><?= htmlspecialchars($row['approve']); ?></td>
                     <td>
                         <?php if ($row['approve'] === 'oui'): ?>
-                            <button class="btn btn-secondary" disabled>
-                                Approuvé
+                            <button class="btn btn-sm btn-secondary" disabled>
+                            <i class="fas fa-check"></i>
                             </button>
                         <?php else: ?>
-                            <button class="btn btn-success" onclick="approveEquipment(<?= $row['id_equipment']; ?>)">
-                                Approuver
+                            <button class="btn btn-sm btn-success" onclick="approveEquipment(<?= $row['id_equipment']; ?>)">
+                            <i class="fas fa-hourglass"></i>
                             </button>
                         <?php endif; ?>
-                        <button class="btn btn-warning" onclick="toggleAvailability(<?= $row['id_equipment']; ?>)">
+                        <button class="btn btn-sm btn-warning" onclick="toggleAvailability(<?= $row['id_equipment']; ?>)">
                          Disponibilité
                         </button>
-                        <button class="btn btn-info" onclick="confirmDelete(<?= $row['id_equipment']; ?>)">
-                            Supprimer
+                        <button class="btn btn-sm btn-danger" onclick="confirmDelete(<?= $row['id_equipment']; ?>)">
+                        <i class="bi bi-trash"></i>
                         </button>
                     </td>
                 </tr>
             <?php endwhile; ?>
         </tbody>
-    </table>
+    </table></div></div></div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+
+    <script>
+       $(document).ready(function() {
+    $('#donateursTable').DataTable();
+
+
+        function confirmDelete(id) {
+            if (confirm("Êtes-vous sûr de vouloir supprimer cet équipement ?")) {
+                window.location.href = '?id=' + id; 
+            }
+        }
+
+        function toggleAvailability(id) {
+            if (confirm("Êtes-vous sûr de vouloir changer la disponibilité de cet équipement ?")) {
+                window.location.href = '?toggle_id=' + id; 
+            }
+        }
+
+        function approveEquipment(id) {
+            if (confirm("Êtes-vous sûr de vouloir approuver cet équipement ?")) {
+               window.location.href = '?approve_id=' + id; 
+            }
+        }});
+    </script>
 </body>
 </html>

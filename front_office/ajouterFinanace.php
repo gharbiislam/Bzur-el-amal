@@ -1,5 +1,7 @@
 <?php
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+  session_start();
+}
 include 'header.php';
 $user_id = $_SESSION['id'];
 
@@ -54,26 +56,26 @@ $categorie_selected = isset($_GET['categorie']) ? $_GET['categorie'] : '';
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
 </head>
 <body>
-    <div class="container mt-5">
+    <div class=" mt-2">
         <h2>Faire un Don</h2>
         <form id="donationForm" method="POST">
-            <div class="mb-3">
-                <label for="name" class="form-label">Nom</label>
-                <input type="text" class="form-control" id="name" name="name" value="<?php echo $user_data['name']; ?>" readonly>
+            <div class="mb-3 px-2 px-2">
+                <label for="name" class="form-label text-left">Nom</label>
+                <input type="text" class="form-control " id="name" name="name" value="<?php echo $user_data['name']; ?>" readonly>
             </div>
-            <div class="mb-3">
+            <div class="mb-3 px-2">
                 <label for="adress" class="form-label">Adresse</label>
                 <input type="text" class="form-control" id="adress" name="adress" value="<?php echo $user_data['adress']; ?>">
             </div>
-            <div class="mb-3">
+            <div class="mb-3 px-2">
                 <label for="phone" class="form-label">Numéro de téléphone</label>
-                <input type="text" class="form-control" id="phone" name="phone" value="<?php echo $user_data['phone_number']; ?>">
+                <input type="text" class="form-control " id="phone" name="phone" value="<?php echo $user_data['phone_number']; ?>">
             </div>
-            <div class="mb-3">
+            <div class="mb-3 px-2">
                 <label for="amount" class="form-label">Montant du Don</label>
                 <input type="number" class="form-control" id="amount" name="amount" required>
             </div>
-            <div class="mb-3">
+            <div class="mb-3 px-2">
                 <label for="categorie" class="form-label">Catégorie</label>
                 <select class="form-select" id="categorie" name="categorie" required <?php echo $categorie_selected ? 'disabled' : ''; ?>>
                     <option value="">Sélectionner le catégorie</option>
@@ -91,7 +93,7 @@ $categorie_selected = isset($_GET['categorie']) ? $_GET['categorie'] : '';
     <?php endif; ?>
 
   
-    <div class="mb-3">
+    <div class="mb-3 px-2">
                 <label for="payment_method" class="form-label">Mode de Paiement</label>
                 <select class="form-select" id="payment_method" name="payment_method" required>
                     <option value="">Sélectionner le Mode de Paiement</option>
@@ -99,22 +101,22 @@ $categorie_selected = isset($_GET['categorie']) ? $_GET['categorie'] : '';
                     <option value="bank_transfer">Virement Bancaire</option>
                 </select>
             </div>
-            <div class="mb-3 d-none" id="otherAmountDiv">
+            <div class="mb-3 px-2 d-none" id="otherAmountDiv">
                 <label for="otherAmount" class="form-label">Montant personnalisé:</label>
                 <input type="number" id="otherAmount" name="otherAmount" class="form-control" min="1">
             </div>
             
 
             <div id="credit_card_details" class="d-none">
-                <div class="mb-3">
+                <div class="mb-3 px-2">
                     <label for="card_number" class="form-label">Numéro de Carte</label>
                     <input type="text" class="form-control" id="card_number" name="card_number" maxlength="15">
                 </div>
-                <div class="mb-3">
+                <div class="mb-3 px-2">
                     <label for="expiry_date" class="form-label">Date d'Expiration (MM/AAAA)</label>
                     <input type="month" class="form-control" id="expiry_date" name="expiry_date">
                 </div>
-                <div class="mb-3">
+                <div class="mb-3 px-2">
                     <label for="security_code" class="form-label">Code de Sécurité (CVV)</label>
                     <input type="text" class="form-control" id="security_code" name="security_code" maxlength="3">
                 </div>
@@ -122,7 +124,7 @@ $categorie_selected = isset($_GET['categorie']) ? $_GET['categorie'] : '';
 
             <!-- Section Détails du Virement Bancaire -->
             <div id="bank_transfer_details" class="d-none">
-                <div class="mb-3">
+                <div class="mb-3 px-2">
                     <label for="bank_name" class="form-label">Nom de la Banque</label>
                     <select class="form-select" id="bank_name" name="bank_name" required>
                         <option value="">Sélectionner la Banque</option>
@@ -133,11 +135,11 @@ $categorie_selected = isset($_GET['categorie']) ? $_GET['categorie'] : '';
                         <option value="Other">Autre</option>
                     </select>
                 </div>
-                <div id="custom_bank_name" class="mb-3 d-none">
+                <div id="custom_bank_name" class="mb-3 px-2 d-none">
                     <label for="other_bank" class="form-label">Nom de la Banque (Autre)</label>
                     <input type="text" class="form-control" id="other_bank" name="other_bank">
                 </div>
-                <div class="mb-3">
+                <div class="mb-3 px-2">
                     <label for="bank_account" class="form-label">Numéro de Compte Bancaire (Commence par TN)</label>
                     <input type="text" class="form-control" id="bank_account" name="bank_account" pattern="^TN\d{12}$" title="Le numéro de compte doit commencer par 'TN' et avoir 12 chiffres" maxlength="14" required>
                 </div>

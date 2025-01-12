@@ -17,7 +17,6 @@ if ($result) {
 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Get the form data
     $adress = $_POST['adress'];
     $phone = $_POST['phone'];
     $categorie = $_POST['categorie'];
@@ -25,12 +24,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $detail = $_POST['detail'];
     $document = $_FILES['document']['name'];
 
-    // Upload document (assuming you want to store it)
     $target_dir = "uploads/";
     $target_file = $target_dir . basename($document);
     move_uploaded_file($_FILES['document']['tmp_name'], $target_file);
 
-    // Insert the new request into the database
     $insert_query = "INSERT INTO request_financiere 
                      (user_id, categorie, montant, details, documents, date_request) 
                      VALUES ('$user_id',  '$categorie', '$amount', '$detail', '$target_file', NOW())";

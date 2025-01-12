@@ -1,6 +1,7 @@
 <?php
-session_start();
-include 'db.php';
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+  }include 'db.php';
 
 if (!isset($_SESSION['id']) || $_SESSION['role'] !== 'beneficiaire') {
     header("Location: login.php");

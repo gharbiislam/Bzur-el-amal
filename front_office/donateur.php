@@ -12,8 +12,9 @@
 
 <div>
     <?php
+if (session_status() == PHP_SESSION_NONE) {
     session_start();
-    include 'header.php';
+  }    include 'header.php';
     include 'db.php';
 
     if (!isset($_SESSION['id']) || $_SESSION['role'] !== 'donateur') {

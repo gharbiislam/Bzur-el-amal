@@ -1,7 +1,8 @@
 <?php 
 
-session_start();
-include 'db.php';
+if (session_status() == PHP_SESSION_NONE) {
+  session_start();
+}include 'db.php';
 ?>
 <!doctype html>
 <html lang="en">
@@ -9,22 +10,23 @@ include 'db.php';
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
-    <link rel="stylesheet" href="../assets/css/style.css">
+   
 
     <title>Bootstrap Example</title>
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
-<body class="p-3 m-0 border-0 bd-example m-0 border-0 ">
+<body class=" mb-5">
 
 
 
-    <nav class="navbar  navbar-expand-md  fixed-top">
+    <nav class="navbar  navbar-expand-md position-fixed fixed-top bg-white ">
         <div class="container">
             <a class="navbar-brand" href="index.php">
-            <img src="../assets/images/logo/logo1.png" alt="Logo"width="200" />
+            <img src="../assets/images/logo/logo1.png" alt="Logo"width="200" class="" />
 
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">

@@ -1,6 +1,7 @@
 <?php
-session_start();
-if (!isset($_SESSION['admins_name'])) {
+if (session_status() == PHP_SESSION_NONE) {
+  session_start();
+}if (!isset($_SESSION['admins_name'])) {
     header("Location: login.php");
     exit();
 }
@@ -40,29 +41,45 @@ mysqli_close(mysql: $conn);
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Edit Profile</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-  <div class="container mt-5">
-    <h2>Edit Profile</h2>
-    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-      <div class="mb-3">
-        <label for="name" class="form-label">Name</label>
+  <div class="d-flex flex-column flex-lg-row ">
+        <div class="col-lg-2 d-none d-lg-block ">
+            <?php
+            include('nav.php');
+
+            ?>
+        </div>
+        <div class="container d-flex justify-content-center align-items-center vh-100" id="edit">
+  <di class=" col-lg-6" .>
+    <h1 class=" mb-5" >Edit Profile</h1>
+    <form method="post" >
+      <div class="mb-4 form-group">
+        <label for="name" class="form-label fw-bold">Name</label>
         <input type="text" class="form-control" id="name" name="name" value="<?php echo htmlspecialchars($admin['name']); ?>" required>
       </div>
-      <div class="mb-3">
-        <label for="email" class="form-label">Email</label>
+      <div class="mb-4 form-group">
+        <label for="email" class="form-label fw-bold">Email</label>
         <input type="email" class="form-control" id="email" name="email" value="<?php echo htmlspecialchars($admin['email']); ?>" required>
       </div>
-      <div class="mb-3">
-        <label for="password" class="form-label">Password</label>
+      <div class="mb-4 form-group">
+        <label for="password" class="form-label fw-bold">Password</label>
         <input type="password" class="form-control" id="password" name="password" value="<?php echo htmlspecialchars($admin['mdp']); ?>" required>
       </div>
-      <button type="submit" class="btn btn-primary">Save Changes</button>
+        <button type="reset" class=" btn mr-5" id="navBtn2">Annuler</button>
+        <button type="submit" class="btn " id="navBtn">Enregistrer</button>
     </form>
-    <a href="dashboard.php" class="btn btn-secondary mt-3">Back to Dashboard</a>
   </div>
+</div>
+
+
+
+    </div>
+  
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>

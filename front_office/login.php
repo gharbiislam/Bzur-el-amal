@@ -1,5 +1,7 @@
 <?php
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+  session_start();
+}
 include 'db.php';
 
 if (isset($_POST['email']) && isset($_POST['pass'])) {
@@ -40,7 +42,7 @@ mysqli_close($conn);
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
 </head>
 <body class=" d-md-flex ">
-    <div class="p-5 col-md-6  text-center  " id="connexion" style="background-image: url('../assets/images/bg/img2.jpeg');" >
+    <div class="p-5 col-md-6  text-center" id="connexion" style="background-image: url('../assets/images/bg/help.webp');" >
       <h1>Bienvenu au Bzure El Amal</h1>
         <p>
         Lorem ipsum dolor sit amet,a? Aliquid maiores modi culpa deserunt fugiat assumenda neque temporibus atque nisi soluta?

@@ -1,6 +1,8 @@
 
 <?php
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+  session_start();
+}
 include 'db.php';
 if (isset($_POST['name'], $_POST['email'], $_POST['pass'], $_POST['role'], $_POST['phone'], $_POST['adress'])) {
     $name = $_POST['name'];

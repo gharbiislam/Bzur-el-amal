@@ -5,60 +5,137 @@ body {
 }
 
 #nav-link {
-    color:#99CCFF;
+    color: #99CCFF;
 
 }
 
 
 
 #nav-link:hover {
-    color:#3498db;
+    color: #3498db;
 }
 
 #nav-link.active {
-    color:#3498db;
-    font-weight: bold; 
+    color: #3498db;
+    font-weight: bold;
 }
-#btn1{
-    color:#99CCFF;
+#c2{
+  color: red;
+}
+#btn1 {
+    color: #99CCFF;
     border: #99CCFF solid 1px;
-    border-radius:5px;
-}    
-
-#btn2{
-    color:white;
-    background-color: #99CCFF;
-    border-radius: 5px;
-    padding: 8px 16px;
-
 }
-#footer{
+
+#btn2 {
+    color: white;
     background-color: #99CCFF;
+}
+.form-control,.form-select{
+   background-color:  #ebf3ff;
+}
+.form-control:disabled{
+    background-color:  #99CCFF;
+}
+
+#back-title{
+    color:#99CC99;
+}
+#title{
+    color:#99CC99;
+}
+#titre{
+    color:#99CCFF;
+}
+#footer {
+    background-color: #99CCFF;
+}
+
+.sidebar {
+    height: 100vh;
+    background-color: #99CC99;
+    color: #fff;
+  }
+  .sidebar a {
+    padding: 0.75rem 1.5rem;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+  }
+  .sidebar a:hover {
+    color: #ffffff;
+    background-color: #7bc47b;
+  }
+  .sidebar .bi {
+    margin-right: 8px;
+  }
+#card1{
+    background-color: #99CCFF;
+}
+
+#card2{
+    background-color: #ffcc00;
+}
+#dashboard{
+    background-color: #f5f6f7;
+}
+#card3{
+    background-color: #99CC99;
 }
 .bg-image {
     background-size: cover;
     background-position: right top;
-    height: 100vh; 
+    height: 100vh;
     background-repeat: no-repeat;
-    }
+}
+.bg-image2 {
+    background-size: cover;
+    background-position: right top;
+    background-repeat: no-repeat;
+}
 
 #connexion {
     height: 100vh;
     background-size: cover;
-        background-repeat: no-repeat;
-        background-position: fixed;
-      
-        }
+    background-repeat: no-repeat;
+    background-position: fixed;
+    
+
+}
+#navBtn{
+    background-color: #7bc47b;
+    color:white;
+    border: none;
+
+}
+#navBtn:hover{
+    background-color: #408140;
+    color:white;
+    border: none;
+}
+#navBtn2{
+    color: #7bc47b;
+background-color: white;
+border: solid 1px #99CC99;}
+#navBtn2:hover{
+    background-color: white;
+    color:#408140;
+    border: solid 1px #408140;
+}
+#edit h1{
+    color:#408140;
+}
+
 #dons {
-            height: 80vh;
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center; 
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: top;
-            color: white;
-            text-align: center; 
-        }
-            
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top;
+    color: white;
+    text-align: center;
+}

@@ -21,8 +21,8 @@ if (isset($_SESSION['role']) && $_SESSION['role'] == 'donateur') {
     <link rel="stylesheet" href="../assets/css/style.css">
 
 </head>
-<body class="p-0 m-0">
-<div class="bg-image text-white row justify-content-end" id="section1" style="background-image: url('../assets/images/bg/bg.png');">
+<body class="container-fluid mt-5 pt-5">
+<div class="bg-image text-white row justify-content-end align-items-center img-fluid" id="section1" style="background-image: url('../assets/images/bg/bg.png');">
     <div class="col-6 text-right mt-5">
         <span class="h1 display-4 my-5 py-5">Ensemble, rendons le monde accessible à <span class="text-warning">Tous</span></span><br>
         <span class="font-weight-light h5">Rejoignez Bzure el Amal et :</span>
@@ -50,7 +50,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] == 'donateur') {
                 </a>
                 <div class="p-3">
                     <h5>Equipments</h5>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad, omnis ea! Aliquid dolore consectetur voluptatem itaque commodi, molestiae veniam quis. Ducimus molestiae vero magni eos eligendi facere fugit eum similique!</p>
+                    <p class="text-truncate col-10 ">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad, omnis ea! Aliquid dolore consectetur voluptatem itaque commodi, molestiae veniam quis. Ducimus molestiae vero magni eos eligendi facere fugit eum similique!</p>
                 </div>
             </div>
 
