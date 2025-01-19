@@ -2,10 +2,11 @@
 // details.php
 include 'db.php';
 include 'header.php';
+
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
-  } 
-// Set the default values for the category
+}
+
 if (isset($_GET['categorie'])) {
     $categorie = $_GET['categorie'];
 
@@ -32,13 +33,15 @@ if (isset($_GET['categorie'])) {
     $query = "SELECT SUM(montant) AS total_donations, COUNT(DISTINCT id_donateur) AS donateur FROM dons_financieres WHERE categorie = '$categorie'";
     $result = mysqli_query($conn, $query);
     $donations = mysqli_fetch_assoc($result);
-    $total_donations = $donations['total_donations'] ?? 0;
-    $donateur = $donations['donateur'] ?? 0;
+
+    $total_donations = isset($donations['total_donations']) && is_numeric($donations['total_donations']) ? $donations['total_donations'] : 0;
+    $donateur = isset($donations['donateur']) && is_numeric($donations['donateur']) ? $donations['donateur'] : 0;
 
     $query2 = "SELECT SUM(montant) AS montant_demande FROM request_financiere WHERE categorie = '$categorie'";
     $result2 = mysqli_query($conn, $query2);
     $requested = mysqli_fetch_assoc($result2);
-    $total_requested = $requested['montant_demande'] ?? 0;
+    
+    $total_requested = isset($requested['montant_demande']) && is_numeric($requested['montant_demande']) ? $requested['montant_demande'] : 0;
 }
 ?>
 
@@ -56,7 +59,7 @@ if (isset($_GET['categorie'])) {
 </head>
 
 <body>
-    <div class="container mt-5">
+    <div class="container mt-5 pt-3">
         <h1 class="my-4 text-center"><?php echo $title; ?></h1>
         <div class="row justify-content-around container mt-5">
             <div class="col-md-7 col-12 shadow-lg border-5 p-3 border-top rounded border-primary row justify-content-center align-items-center h-100">
@@ -68,7 +71,7 @@ if (isset($_GET['categorie'])) {
             <div class="col-md-4 col-12 shadow-lg border-5 border-top border-primary rounded p-3 h-50">
                 <div id="faireUndon" class="text-center">
                     <div class="row justify-content-center">
-                        <canvas id="donutChart" width="150" height="150"></canvas>
+                        <canvas id="donutChart" width="150" h-auto></canvas>
 
                         <h2 id="titre"><?php echo number_format($total_donations, 2); ?> DT</h2>
                         <h5 class="fw-bold">collectés sur: <span class="fw-bolder"><?php echo number_format($total_requested, 2); ?> DT</span></h5>
@@ -82,7 +85,7 @@ if (isset($_GET['categorie'])) {
                         <?php endif; ?>
                     </div>
                     <div>
-                        <p> Reste à collecter : <span class="fw-bolder"> <?php echo (number_format($total_requested, 2) - number_format($total_donations, 2)); ?> DT</span></p>
+                        <p> Reste à collecter : <span class="fw-bolder"> <?php echo number_format($total_requested - $total_donations, 2); ?> DT</span></p>
                     </div>
                 </div>
                 <div id="formDon" class="container d-none">

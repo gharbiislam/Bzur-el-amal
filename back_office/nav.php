@@ -51,12 +51,18 @@ include 'db.php';
               <a class="nav-link" href="equipment.php">
                 <i class="bi bi-heart-pulse"></i> Équipement médical
               </a>
+            </li> 
+            <li class="nav-item">
+              <a class="nav-link" href="finance.php">
+              <i class="fas fa-donate"></i>  Finance
+              </a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="users.php">
                 <i class="bi bi-people"></i> Users
               </a>
             </li>
+           
           </ul>
           
           <div class="dropdown mt-4 ms-3">

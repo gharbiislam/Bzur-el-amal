@@ -1,7 +1,7 @@
 <?php
 include 'db.php';
 
-$query = "SELECT users.id, users.name, users.email, users.pass, users.adress, users.created_at, users.phone_number, donateur.type_don, donateur.date_dernier_don
+$query = "SELECT users.id, users.name, users.email, users.pass, users.adress, users.created_at, users.phone_number, donateur.date_dernier_don
           FROM users 
           JOIN donateur ON users.id = donateur.user_id
           WHERE users.role = 'donateur'";
@@ -31,7 +31,7 @@ $beneficiaires = mysqli_query($conn, $query2);
 
 </head>
 
-<body>
+<body class="">
 
     <div class="d-flex flex-column flex-lg-row ">
         <div class="col-lg-2 d-none d-lg-block ">
@@ -40,7 +40,7 @@ $beneficiaires = mysqli_query($conn, $query2);
 
             ?>
         </div>
-        <div class=" mx-2 col-lg-10">
+        <div class=" col-lg-10 container-fluid">
         <h2 id="back-title" class="my-4">Liste des Donateurs</h2>
             <div class="table-responsive">
                 <table class="table table-striped table-bordered nowrap  mt-5 " style="width: 100%;" id="donateursTable">
@@ -53,7 +53,6 @@ $beneficiaires = mysqli_query($conn, $query2);
                             <th>Adresse</th>
                             <th>Date de Création du Compte</th>
                             <th>Téléphone</th>
-                            <th>Type de Don</th>
                             <th>Date de Dernière Donation</th>
                             <th>Actions</th>
                         </tr>
@@ -69,10 +68,9 @@ $beneficiaires = mysqli_query($conn, $query2);
                                     <td><?= $donateur['adress'] ?></td>
                                     <td><?= $donateur['created_at'] ?></td>
                                     <td><?= $donateur['phone_number'] ?></td>
-                                    <td><?= $donateur['type_don'] ?></td>
                                     <td><?= $donateur['date_dernier_don'] ?></td>
                                     <td>
-                                        <a href="edit_donateur.php?id=<?= $donateur['id'] ?>" class="btn btn-sm" id="navBtn">
+                                        <a href="edit_donateur.php?id=<?= $donateur['id'] ?>" class="btn btn-sm" id="navBtn" onclick="return confirmEdit('beneficiaire')">
                                             <i class="bi bi-pencil-square"></i>
                                         </a>
                                         <a href="delete_donateur.php?id=<?= $donateur['id'] ?>"
@@ -126,7 +124,7 @@ $beneficiaires = mysqli_query($conn, $query2);
                                     <td><?= $beneficiaire['handicap_type'] ?></td>
                                     <td><?= $beneficiaire['needs'] ?></td>
                                     <td>
-                                        <a href="edit_beneficiaire.php?id=<?= $beneficiaire['id'] ?>" class="btn  btn-sm" id="navBtn" >
+                                        <a href="edit_beneficiaire.php?id=<?= $beneficiaire['id'] ?>" class="btn  btn-sm" id="navBtn" onclick="return confirmEdit('beneficiaire')" >
                                             <i class="bi bi-pencil-square"></i>
                                         </a>
                                         <a href="delete_beneficiaire.php?id=<?= $beneficiaire['id'] ?>"
@@ -152,15 +150,24 @@ $beneficiaires = mysqli_query($conn, $query2);
     <script>
         $(document).ready(function() {
             $('#donateursTable').DataTable({
-                responsive: true
-
+                responsive: true,
+                pageLength: 5
             });
             $('#beneficiairesTable').DataTable({
-                responsive: true
-
+                responsive: true,
+                pageLength: 5
             });
         });
+        function confirmEdit(type) {
+        if (type === 'donateur') {
+            return confirm("Are you sure you want to edit this Donateur?");
+        } else if (type === 'beneficiaire') {
+            return confirm("Are you sure you want to edit this Bénéficiaire?");
+        }
+    }
+    
     </script>
+   
 </body>
 
 </html>

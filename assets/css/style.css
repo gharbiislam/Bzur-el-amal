@@ -9,8 +9,6 @@ body {
 
 }
 
-
-
 #nav-link:hover {
     color: #3498db;
 }
@@ -19,9 +17,11 @@ body {
     color: #3498db;
     font-weight: bold;
 }
-#c2{
-  color: red;
+
+#c2 {
+    color: red;
 }
+
 #btn1 {
     color: #99CCFF;
     border: #99CCFF solid 1px;
@@ -31,22 +31,31 @@ body {
     color: white;
     background-color: #99CCFF;
 }
-.form-control,.form-select{
-   background-color:  #ebf3ff;
+
+input[type="file"]::-webkit-file-upload-button {
+    display: none;
 }
-.form-control:disabled{
-    background-color:  #99CCFF;
+input[type="month"]::-webkit-date-button {
+    display: none;
 }
 
-#back-title{
-    color:#99CC99;
+
+
+
+
+
+#back-title {
+    color: #99CC99;
 }
-#title{
-    color:#99CC99;
+
+#title {
+    color: #99CC99;
 }
-#titre{
-    color:#99CCFF;
+
+#titre {
+    color: #99CCFF;
 }
+
 #footer {
     background-color: #99CCFF;
 }
@@ -55,40 +64,48 @@ body {
     height: 100vh;
     background-color: #99CC99;
     color: #fff;
-  }
-  .sidebar a {
+}
+
+.sidebar a {
     padding: 0.75rem 1.5rem;
     display: flex;
     align-items: center;
     text-decoration: none;
     color: white;
-  }
-  .sidebar a:hover {
+}
+
+.sidebar a:hover {
     color: #ffffff;
     background-color: #7bc47b;
-  }
-  .sidebar .bi {
+}
+
+.sidebar .bi {
     margin-right: 8px;
-  }
-#card1{
+}
+
+#card1 {
     background-color: #99CCFF;
 }
 
-#card2{
+#card2 {
     background-color: #ffcc00;
 }
-#dashboard{
+
+#dashboard {
     background-color: #f5f6f7;
 }
-#card3{
+
+#card3 {
     background-color: #99CC99;
 }
+
 .bg-image {
     background-size: cover;
     background-position: right top;
     height: 100vh;
     background-repeat: no-repeat;
 }
+
 .bg-image2 {
     background-size: cover;
     background-position: right top;
@@ -100,31 +117,37 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: fixed;
-    
+
 
 }
-#navBtn{
+
+#navBtn {
     background-color: #7bc47b;
-    color:white;
+    color: white;
     border: none;
 
 }
-#navBtn:hover{
+
+#navBtn:hover {
     background-color: #408140;
-    color:white;
+    color: white;
     border: none;
 }
-#navBtn2{
+
+#navBtn2 {
     color: #7bc47b;
-background-color: white;
-border: solid 1px #99CC99;}
-#navBtn2:hover{
     background-color: white;
-    color:#408140;
+    border: solid 1px #99CC99;
+}
+
+#navBtn2:hover {
+    background-color: white;
+    color: #408140;
     border: solid 1px #408140;
 }
-#edit h1{
-    color:#408140;
+
+#edit h1 {
+    color: #408140;
 }
 
 #dons {
@@ -139,3 +162,122 @@ border: solid 1px #99CC99;}
     color: white;
     text-align: center;
 }
+.history {
+    color: #42526D;
+}
+.history:hover {
+    color: #2760b2;
+}
+
+.history.active {
+    color: #2760b2;
+    border-bottom: #ffcc00 2px solid;
+}
+
+
+
+.bg-alert {
+    background-color: #ffefb0;
+}
+
+.star-rating {
+    display: inline-block;
+    direction: rtl;
+}
+
+.star-rating input {
+    display: none;
+}
+
+.star-rating label {
+    font-size: 30px;
+    color: #ccc;
+    cursor: pointer;
+}
+
+.star-rating input:checked~label {
+    color: gold;
+}
+
+.star-rating input:hover~label {
+    color: gold;
+}
+
+
+.carousel-container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 40px;
+    text-align: center;
+    background: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.review-text {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+}
+
+.rating {
+    font-size: 1.5rem;
+    color: gold;
+}
+
+.carousel-btns {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.carousel-btns i {
+    font-size: 2rem;
+    color: #007bff;
+    cursor: pointer;
+}
+
+.carousel-btns i:hover {
+    color: #0056b3;
+}
+
+.titre2 {
+    color: #2760b2;
+}
+
+.detailsBtn {
+    background-color: #2760b2;
+    color: white;
+}
+
+.detailsBtn:hover {
+    background-color: #0056b3;
+    color: white;
+}
+
+#vv {
+    background-color: #ffe88a;
+}
+
+.form-control {
+    background-color: #EDF2F7;
+}
+
+.filters {
+    border: none;
+    background-color: #f8f9fa;
+    box-shadow: none;
+}
+
+
+.filters:focus {
+    border: none;
+    background-color: #f8f9fa;
+    box-shadow: none;
+}
+
+.error {
+    color: red;
+    font-size: 0.875em;
+    margin-top: 5px;
+}
+

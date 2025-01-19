@@ -2,11 +2,7 @@
 include 'db.php';
 include 'header.php';
 
-if (isset($_SESSION['role']) && $_SESSION['role'] == 'donateur') {
-    $showDonateButton = true;
-} else {
-    $showDonateButton = false;
-}
+
 ?>
 
 <!DOCTYPE html>
@@ -16,14 +12,14 @@ if (isset($_SESSION['role']) && $_SESSION['role'] == 'donateur') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Header</title>
-    <link rel="stylesheet" href="bootstrap.min.css">
-    <script src="bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <script src="../assets/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="../assets/css/style.css">
 
 </head>
 <body class="container-fluid mt-5 pt-5">
-<div class="bg-image text-white row justify-content-end align-items-center img-fluid" id="section1" style="background-image: url('../assets/images/bg/bg.png');">
-    <div class="col-6 text-right mt-5">
+<div class="bg-image text-white row  vh-100 align-items-start justify-content-end img-fluid pt-5" id="section1" style="background-image: url('../assets/images/bg/bg.png');">
+    <div class="col-6 text-right mt-5 pt-5">
         <span class="h1 display-4 my-5 py-5">Ensemble, rendons le monde accessible à <span class="text-warning">Tous</span></span><br>
         <span class="font-weight-light h5">Rejoignez Bzure el Amal et :</span>
         <ul class="font-weight-bolder h4" style="font-size: 1.5rem;">
@@ -34,54 +30,40 @@ if (isset($_SESSION['role']) && $_SESSION['role'] == 'donateur') {
         <a href="" class="btn btn-warning text-white btn-lg">Espace Bénéficiaire</a>
     </div>
 </div>
+<?php include ("finance.php")?>
 
+<section class="text-center  py-5" id="dashboard">
+        <div class="container">
+    <h1 class="titre2">Collaboration Avec</h1>
+    <p>Association Bzure El Amal Remercie leurs Collaboration Avec</p>
 
-
-    <div class="mt-5 container">
-
-        <div class="d-lg-flex">
-
-            <!-- Equipments -->
-            <div class="col-lg-4" id="equipments">
-                <a href="details.php?categorie=equipments">
-                    <div>
-                        <img src="http://localhost/dashboard/pfa/assets/equipmen.jpeg" alt="" width="350px" height="300px">
-                    </div>
-                </a>
-                <div class="p-3">
-                    <h5>Equipments</h5>
-                    <p class="text-truncate col-10 ">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad, omnis ea! Aliquid dolore consectetur voluptatem itaque commodi, molestiae veniam quis. Ducimus molestiae vero magni eos eligendi facere fugit eum similique!</p>
-                </div>
-            </div>
-
-            <!-- Operations -->
-            <div class="col-lg-4" id="operations">
-                <a href="details.php?categorie=operations">
-                    <div>
-                        <img src="http://localhost/dashboard/pfa/assets/operations.png" alt="" width="350px" height="300px">
-                    </div>
-                </a>
-                <div class="p-3">
-                    <h5>Operations</h5>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad, omnis ea! Aliquid dolore consectetur voluptatem itaque commodi, molestiae veniam quis. Ducimus molestiae vero magni eos eligendi facere fugit eum similique!</p>
-                </div>
-            </div>
-
-            <!-- Soins Medicaux -->
-            <div class="col-lg-4" id="soinsmedicaux">
-                <a href="details.php?categorie=soinsmedicaux">
-                    <div>
-                        <img src="http://localhost/dashboard/pfa/assets/soins.jpg" alt="" width="350px" height="300px">
-                    </div>
-                </a>
-                <div class="pt-3">
-                    <h5>Soins Medicaux</h5>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad, omnis ea! Aliquid dolore consectetur voluptatem itaque commodi, molestiae veniam quis. Ducimus molestiae vero magni eos eligendi facere fugit eum similique!</p>
-                </div>
-            </div>
-
-
+    <div class="row justify-content-between align-items-center ">
+        <div class="col-4  col-md-2 p-2 text-center ">
+            <img src="../assets/images/logo/cipph.jpeg" alt="" class="img-fluid " style="max-width: 150px; height: auto;">
         </div>
+        <div class="col-4  col-md-2 p-2 text-center">
+            <img src="../assets/images/logo/crLogo.png" alt="" class="img-fluid" style="max-width: 100px; height: auto;">
+        </div>
+        <div class="col-4  col-md-2 p-2 text-center">
+            <img src="../assets/images/logo/LOGO-GEMI.png" alt="" class="img-fluid" style="max-width: 150px; height: auto;">
+        </div>
+        <div class="col-4  col-md-2 p-2 text-center">
+            <img src="../assets/images/logo/msLogo.png" alt="" class="img-fluid" style="max-width: 100px; height: auto;">
+        </div>
+        <div class="col-4  col-md-2 0">
+            <img src="../assets/images/logo/pharmacie.png" alt="" class="img-fluid" style="max-width: 100px; height: auto;">
+        </div>
+        <div class="col-4  col-md-2 p-2 text-center">
+            <img src="../assets/images/logo/bt.png" alt="" class="img-fluid" style="max-width: 80px; height: auto;">
+        </div>
+    </div></div>
+</section>
+
+
+
+
+    
+        <?php include("ja.php")?>
 
     </div>
 <?php include("footer.php")?>

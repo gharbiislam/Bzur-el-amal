@@ -5,16 +5,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Donateur Interface</title>
-    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demandes de Bénéficiaire</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
 
 </head>
 
 <div>
     <?php
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-  }    include 'header.php';
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
+    include 'header.php';
     include 'db.php';
 
     if (!isset($_SESSION['id']) || $_SESSION['role'] !== 'donateur') {
@@ -44,82 +51,82 @@ if (session_status() == PHP_SESSION_NONE) {
 
     <div id="dons" class="text-center pt-5 d-flex-row" id="bene" style="background-image: url('../assets/images/bg/about2.jpg');">
         <h1>Welcome to Donateur Interface</h1>
-        <div>
-            <a href="ajouterEquip.php">Ajouter equipment</a>
-            <a href="ajouterFinanace.php">Ajouter financiere</a>
+        <div >
+            <a href="ajouterEquip.php" class="btn" id="btn2">Ajouter equipment</a>
+            <a href="finance.php" class="btn" id="btn2">Ajouter financiere</a>
         </div>
     </div>
-    <div class="container mt-5 pt-5">
-        <h2 class="text-primary">Historique de dons </h2>
+    <div class="container text-center mt-5">
+        <h2 class="titre2">Historique de dons </h2>
         <p>Lorem ipsum dolor sit amet consectetur. Mauris ipsum phasellus purus.</p>
-
-        <a href="#" id="showEquipment" id="btn2">Demande Equipment</a>
-        <a href="#" id="showFinance" id="btn1">Demande Financière</a>
-    <div id="equipmentSection" class="mt-4">
-        <table class="table">
-            <thead>
-                <tr class="table-primary">
-                    <th>Montant</th>
-                    <th>Date de Don</th>
-                    <th>Mode de Paiement</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php while ($row = mysqli_fetch_assoc($result_financial)): ?>
-                    <tr class="table-warning">
-                        <td><?= htmlspecialchars($row['montant']); ?></td>
-                        <td><?= htmlspecialchars($row['date_don']); ?></td>
-                        <td><?= htmlspecialchars($row['mode_paiement']); ?></td>
+<div class="d-flex justify-content-start" >
+        <a href="#" id="showEquipment" class="nav-link history active">Donations Financière</a>
+        <a href="#" id="showFinance" class="mx-2 nav-link history">Donations Equipment</a></div>
+        <div id="equipmentSection" class="mt-4">
+            <table class="table">
+                <thead>
+                    <tr class="table-primary">
+                        <th>Montant</th>
+                        <th>Date de Don</th>
+                        <th>Mode de Paiement</th>
                     </tr>
-                <?php endwhile; ?>
-            </tbody>
-        </table>
-    </div>
-    <div id="financeSection" class="mt-4 d-none">
-        <table class="table">
-            <thead>
-                <tr class="table-primary">
-                    <th>Nom de l'Équipement</th>
-                    <th>Quantité</th>
-                    <th>Type d'Équipement</th>
-                    <th>État</th>
-                    <th>Disponibilité</th>
-                    <th>Date de Don</th>
-                    <th>Approuvé</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php while ($row = mysqli_fetch_assoc($result_equipment)): ?>
-                    <tr class="table-warning">
-                        <td><?= htmlspecialchars($row['name']); ?></td>
-                        <td><?= htmlspecialchars($row['quantite']); ?></td>
-                        <td><?= htmlspecialchars($row['type_equipment']); ?></td>
-                        <td><?= htmlspecialchars($row['etat']); ?></td>
-                        <td><?= htmlspecialchars($row['disponabilite']); ?></td>
-                        <td><?= htmlspecialchars($row['date_don']); ?></td>
-                        <td><?= htmlspecialchars($row['approve']); ?></td>
+                </thead>
+                <tbody>
+                    <?php while ($row = mysqli_fetch_assoc($result_financial)): ?>
+                        <tr class="table-warning">
+                            <td><?= htmlspecialchars($row['montant']); ?></td>
+                            <td><?= htmlspecialchars($row['date_don']); ?></td>
+                            <td><?= htmlspecialchars($row['mode_paiement']); ?></td>
+                        </tr>
+                    <?php endwhile; ?>
+                </tbody>
+            </table>
+        </div>
+        <div id="financeSection" class="mt-4 d-none">
+            <table class="table">
+                <thead>
+                    <tr class="table-primary">
+                        <th>Nom de l'Équipement</th>
+                        <th>Quantité</th>
+                        <th>Type d'Équipement</th>
+                        <th>État</th>
+                        <th>Disponibilité</th>
+                        <th>Date de Don</th>
+                        <th>Approuvé</th>
                     </tr>
-                <?php endwhile; ?>
-            </tbody>
-        </table>
-    </div></div>
+                </thead>
+                <tbody>
+                    <?php while ($row = mysqli_fetch_assoc($result_equipment)): ?>
+                        <tr class="table-warning">
+                            <td><?= htmlspecialchars($row['name']); ?></td>
+                            <td><?= htmlspecialchars($row['quantite']); ?></td>
+                            <td><?= htmlspecialchars($row['type_equipment']); ?></td>
+                            <td><?= htmlspecialchars($row['etat']); ?></td>
+                            <td><?= htmlspecialchars($row['disponabilite']); ?></td>
+                            <td><?= htmlspecialchars($row['date_don']); ?></td>
+                            <td><?= htmlspecialchars($row['approve']); ?></td>
+                        </tr>
+                    <?php endwhile; ?>
+                </tbody>
+            </table>
+        </div><?php include 'review.php' ?>
     </div>
-    <script>
-        document.getElementById('showEquipment').addEventListener('click', function(e) {
-            e.preventDefault();
-            document.getElementById('equipmentSection').classList.remove('d-none');
-            document.getElementById('financeSection').classList.add('d-none');
-        });
+</div>
 
-        document.getElementById('showFinance').addEventListener('click', function(e) {
-            e.preventDefault();
-            document.getElementById('equipmentSection').classList.add('d-none');
-            document.getElementById('financeSection').classList.remove('d-none');
-        });
-    </script>
 
-    </div>
-    <script src="bootstrap.bundle.min.js"></script>
+
+
+</div>
+<script src="../assets/js/index.js"></script>
+<script>
+    $(document).ready(function() {
+    $(".history").on("click", function() {
+        $(".history").removeClass("active");
+        
+        $(this).addClass("active");
+    });
+});
+</script>
 </body>
 
 </html>

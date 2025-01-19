@@ -5,8 +5,8 @@ if (session_status() == PHP_SESSION_NONE) {
 include 'db.php';
 
 if (isset($_POST['email']) && isset($_POST['pass'])) {
-    $email = mysqli_real_escape_string($conn, $_POST['email']);
-    $pass = mysqli_real_escape_string($conn, $_POST['pass']);
+    $email = $_POST['email'];
+    $pass = $_POST['pass'];
 
     $sql = "SELECT * FROM users WHERE email = '$email' AND pass = '$pass'";
     $result = mysqli_query($conn, $sql);
@@ -42,7 +42,7 @@ mysqli_close($conn);
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
 </head>
 <body class=" d-md-flex ">
-    <div class="p-5 col-md-6  text-center" id="connexion" style="background-image: url('../assets/images/bg/help.webp');" >
+    <div class="p-5 col-md-6  text-center" id="connexion" style="background-image: url('../assets/images/bg/about3.jpg');" >
       <h1>Bienvenu au Bzure El Amal</h1>
         <p>
         Lorem ipsum dolor sit amet,a? Aliquid maiores modi culpa deserunt fugiat assumenda neque temporibus atque nisi soluta?
@@ -66,34 +66,7 @@ mysqli_close($conn);
     <script src="bootstrap.bundle.min.js"></script>
     <script src="bootstrap.min.js"></script>
 
-    <script>
-        $(document).ready(function() {
-            $("#loginForm").validate({
-                rules: {
-                    email: {
-                        required: true,
-                        email: true
-                    },
-                    pass: {
-                        required: true,
-                        minlength: 6
-                    }
-                },
-                messages: {
-                    email: {
-                        required: "Veuillez entrer votre email",
-                        email: "Veuillez entrer un email valide"
-                    },
-                    pass: {
-                        required: "Veuillez entrer votre mot de passe",
-                        minlength: "Le mot de passe doit comporter au moins 6 caractères"
-                    }
-                },
-                submitHandler: function(form) {
-                    form.submit();  
-                }
-            });
-        });
-    </script>
+    <script src="../assets/js/jQueryvalidate.js">
+</script>
 </body>
 </html>

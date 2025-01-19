@@ -37,7 +37,10 @@ if (!$result2) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Demandes de Bénéficiaire</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
 
 </head>
 
@@ -45,18 +48,30 @@ if (!$result2) {
     <?php include 'header.php'; ?>
 
 
-    <div class="text-center pt-5 d-flex-row" id="dons" style="background-image: url('../assets/images/bg/about2.jpg');">
-    <h1 >Bienvenue dans l'interface bénéficiaire</h1>
-    <p>Lorem ipsum dolor sit amet consectetur. Mauris ipsum phasellus purus metus in maecenas vitae facilisi turpis. Enim rutrum pretium aliquet</p>
-   <div> <a href="demandeFinanace.php" id="btn2">Demande financiere</a>
-    <a href="equipment.php" id="btn2">Demande equipment</a></div>
+    <div class="text-center d-flex flex-column justify-content-center align-items-center vh-80 position-relative" 
+     id="dons" 
+     style="background-image: url('../assets/images/bg/benef.jpg'); background-size: cover; background-position: center;">
+     
+    <!-- Overlay -->
+    <div class="position-absolute top-0 start-0 w-100 h-100 bg-primary opacity-50" style="z-index: 1;"></div>
+    
+    <!-- Content -->
+    <h1 class="text-white position-relative" style="z-index: 2;">Bienvenue dans l'interface bénéficiaire</h1>
+    <p class="text-white position-relative" style="z-index: 2;">Lorem ipsum dolor sit amet consectetur. Mauris ipsum phasellus purus metus in maecenas vitae facilisi turpis. Enim rutrum pretium aliquet</p>
+    <div class="mt-3 position-relative" style="z-index: 2;">
+        <a href="demandeFinanace.php"  class="btn btn-warning mx-2 text-white">Demande financière</a>
+        <a href="equipment.php"  class="btn btn-warning mx-2 text-white">Demande équipement</a>
+    </div>
 </div>
-<div class="container text-center">
-    <h2 class="text-primary">Historique de Demande</h2>
-    <p>Lorem ipsum dolor sit amet consectetur. Mauris ipsum phasellus purus.</p>
 
-    <a href="#" id="showEquipment" id="btn2">Demande Equipment</a>
-    <a href="#" id="showFinance" id="btn1">Demande Financière</a>
+
+<div class="container text-center mt-5">
+    <h2 class="titre2">Historique de Demande</h2>
+    <p>Lorem ipsum dolor sit amet consectetur. Mauris ipsum phasellus purus.</p>
+    <div class="d-flex justify-content-start">
+    <a href="#" id="showEquipment" class="nav-link history active">Demande Equipment</a>
+    <a href="#" id="showFinance" class="mx-2 nav-link history">Demande Financière</a>
+</div>
 
     <div id="equipmentSection" class="mt-4">
         <?php 
@@ -126,22 +141,14 @@ if (!$result2) {
             echo '<div class="alert alert-info">Aucune demande trouvée.</div>';
         }
         ?>
-    </div>
+    </div><?php include 'review.php'?>
+
 </div>
 
-<script>
-    document.getElementById('showEquipment').addEventListener('click', function (e) {
-        e.preventDefault();
-        document.getElementById('equipmentSection').classList.remove('d-none');
-        document.getElementById('financeSection').classList.add('d-none');
-    });
-
-    document.getElementById('showFinance').addEventListener('click', function (e) {
-        e.preventDefault();
-        document.getElementById('equipmentSection').classList.add('d-none');
-        document.getElementById('financeSection').classList.remove('d-none');
-    });
+<script src="../assets/js/index.js">
+   
 </script>
+
 
 </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

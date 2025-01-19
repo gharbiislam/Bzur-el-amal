@@ -26,19 +26,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $query_insert = "INSERT INTO dons_financieres (id_donateur, montant, mode_paiement, categorie) 
                      VALUES ($donateur_id, $amount, '$payment_method', '$categorie')";
     $result_insert = mysqli_query($conn, $query_insert);
-
+    $updateUser = "UPDATE users SET adress='$adress', phone_number='$phone' WHERE id=$user_id";
     if ($result_insert) {
-        echo "Don effectué avec succès !";
-        header("Location:donateur.php");
+        $message = "Don effectué avec succès!";
+        
+
     } else {
-        echo "Erreur : " . mysqli_error($conn);
+        $message = "Erreur lors de l'enregistrement du don: " . mysqli_error($conn);
     }
 
     $updateUser = "UPDATE users SET adress='$adress', phone_number='$phone' WHERE id=$user_id";
     if (mysqli_query($conn, $updateUser)) {
-        echo "Mise à jour réussie !";
+        $message_update = "Mise à jour réussie!";
     } else {
-        echo "Erreur lors de la mise à jour : " . mysqli_error($conn);
+        $message_update = "Erreur lors de la mise à jour: " . mysqli_error($conn);
     }
 }
 
@@ -53,11 +54,19 @@ $categorie_selected = isset($_GET['categorie']) ? $_GET['categorie'] : '';
     <title>Faire un Don</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../assets/js/jQueryvalidate.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
 </head>
 <body>
     <div class=" mt-2">
-        <h2>Faire un Don</h2>
+        <h2>Faire un Don</h2> <?php if (isset($message)): ?>
+            <div class="alert alert-success text-center">
+                <i class="bi bi-check-circle px-2"></i> <?= $message; ?>
+            </div>
+        <?php endif; ?>
+
+       
+        
         <form id="donationForm" method="POST">
             <div class="mb-3 px-2 px-2">
                 <label for="name" class="form-label text-left">Nom</label>
@@ -114,7 +123,11 @@ $categorie_selected = isset($_GET['categorie']) ? $_GET['categorie'] : '';
                 </div>
                 <div class="mb-3 px-2">
                     <label for="expiry_date" class="form-label">Date d'Expiration (MM/AAAA)</label>
-                    <input type="month" class="form-control" id="expiry_date" name="expiry_date">
+                    <div class="input-group">
+                    <input type="month" class="form-control" id="date" name="expiry_date">
+                    <span class="input-group-text bg-warning">
+                            <i class="bi bi-date text-white text-center"></i>
+                        </span></div>
                 </div>
                 <div class="mb-3 px-2">
                     <label for="security_code" class="form-label">Code de Sécurité (CVV)</label>
@@ -129,8 +142,8 @@ $categorie_selected = isset($_GET['categorie']) ? $_GET['categorie'] : '';
                     <select class="form-select" id="bank_name" name="bank_name" required>
                         <option value="">Sélectionner la Banque</option>
                         <option value="Banque de Tunisie">Banque de Tunisie</option>
-                        <option value="Banque Nationale Agricole">Banque Nationale Agricole</option>
-                        <option value="Banque de l'Habitat">Banque de l'Habitat</option>
+                        <option value="banque Zitouna">Banque de Zitouna</option>
+                        <option value="Banque BH">Banque BH</option>
                         <option value="Banque Attijari">Banque Attijari</option>
                         <option value="Other">Autre</option>
                     </select>
@@ -143,15 +156,14 @@ $categorie_selected = isset($_GET['categorie']) ? $_GET['categorie'] : '';
                     <label for="bank_account" class="form-label">Numéro de Compte Bancaire (Commence par TN)</label>
                     <input type="text" class="form-control" id="bank_account" name="bank_account" pattern="^TN\d{12}$" title="Le numéro de compte doit commencer par 'TN' et avoir 12 chiffres" maxlength="14" required>
                 </div>
-            </div>
-
-            <button type="submit" class="btn btn-primary">Soumettre le Don</button>  
+            </div><div class="text-center">
+<button type="reset" class="btn " id="btn1">Soumettre le Don</button> 
+            <button type="submit" class="btn " id="btn2">Soumettre le Don</button></div>  
+             
     </div>  </form></div>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function () {
-            // Afficher ou masquer les détails de paiement en fonction du mode de paiement sélectionné
             $('#payment_method').change(function () {
                 if ($(this).val() == 'credit_card') {
                     $('#credit_card_details').removeClass('d-none');
@@ -165,7 +177,6 @@ $categorie_selected = isset($_GET['categorie']) ? $_GET['categorie'] : '';
                 }
             });
 
-            // Afficher le champ pour le nom de la banque lorsqu'on sélectionne "Autre"
             $('#bank_name').change(function () {
                 if ($(this).val() == 'Other') {
                     $('#custom_bank_name').removeClass('d-none');
@@ -174,85 +185,6 @@ $categorie_selected = isset($_GET['categorie']) ? $_GET['categorie'] : '';
                 }
             });
 
-            // Valider le formulaire avec jQuery Validate
-            $('#donationForm').validate({
-                rules: {
-                    amount: {
-                        required: true,
-                        min: 1
-                    },
-                    payment_method: {
-                        required: true
-                    },
-                    card_number: {
-                        required: function() {
-                            return $('#payment_method').val() === 'credit_card';
-                        },
-                        minlength: 15,
-                        maxlength: 15,
-                        digits: true
-                    },
-                    expiry_date: {
-                        required: function() {
-                            return $('#payment_method').val() === 'credit_card';
-                        }
-                    },
-                    security_code: {
-                        required: function() {
-                            return $('#payment_method').val() === 'credit_card';
-                        },
-                        minlength: 3,
-                        maxlength: 3,
-                        digits: true
-                    },
-                    bank_name: {
-                        required: function() {
-                            return $('#payment_method').val() === 'bank_transfer';
-                        }
-                    },
-                    other_bank: {
-                        required: function() {
-                            return $('#bank_name').val() === 'Other';
-                        }
-                    },
-                    bank_account: {
-                        required: function() {
-                            return $('#payment_method').val() === 'bank_transfer';
-                        },
-                        pattern: /^TN\d{12}$/,
-                        minlength: 14,
-                        maxlength: 14
-                    }
-                },
-                messages: {
-                    amount: {
-                        required: "Veuillez entrer un montant pour le don",
-                        min: "Le montant doit être supérieur à zéro"
-                    },
-                    payment_method: "Veuillez sélectionner un mode de paiement",
-                    card_number: {
-                        required: "Veuillez entrer le numéro de votre carte",
-                        minlength: "Le numéro de carte doit être exactement de 15 chiffres",
-                        maxlength: "Le numéro de carte doit être exactement de 15 chiffres",
-                        digits: "Veuillez entrer un numéro de carte valide"
-                    },
-                    expiry_date: "Veuillez entrer une date d'expiration valide",
-                    security_code: {
-                        required: "Veuillez entrer le code de sécurité",
-                        minlength: "Le code de sécurité doit être exactement de 3 chiffres",
-                        maxlength: "Le code de sécurité doit être exactement de 3 chiffres",
-                        digits: "Veuillez entrer un code de sécurité valide"
-                    },
-                    bank_name: "Veuillez sélectionner une banque",
-                    other_bank: "Veuillez entrer le nom de la banque",
-                    bank_account: {
-                        required: "Veuillez entrer un numéro de compte bancaire",
-                        pattern: "Le numéro de compte doit commencer par 'TN' et avoir 12 chiffres",
-                        minlength: "Le numéro de compte doit avoir 14 caractères",
-                        maxlength: "Le numéro de compte doit avoir 14 caractères"
-                    }
-                }
-            });
         });
     </script>
 </body>

@@ -84,7 +84,7 @@ mysqli_close($conn);
         <label for="mdp" class="form-label font-weight-bolder  ">Mot de passe:</label>
         <input type="password" name="mdp" class="form-control" required></div>
         <div class="text-center">
-        <input type="submit" value="Se connecter" id="btn2" class="border-0  ">
+        <input type="submit" value="Se connecter" id="btn2" class="border-0 btn ">
 </div>
   </form>
   <?php if (!empty($errors)): ?>

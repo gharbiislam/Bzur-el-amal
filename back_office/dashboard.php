@@ -53,9 +53,7 @@ $conn->close();
     .chart-container {
       width: 100%;
       max-width: 500px;
-      /* Adjust the size as needed */
       margin: auto;
-      /* Center the chart */
     }
   </style>
 
@@ -68,7 +66,7 @@ $conn->close();
       include('nav.php'); ?>
     </div>
 
-    <div class="col-lg-10 px-3" id="dashboard">
+    <div class="col-lg-10 container-fluid" id="dashboard">
       <div>
       <h1 class="my-3">Dashboard</h1>
       
@@ -168,7 +166,7 @@ $conn->close();
             plugins: {
               legend: {
                 display: true,
-                position: 'right', // Moves the label/legend to the right
+                position: 'right', 
               },
               tooltip: {
                 enabled: true,
@@ -198,7 +196,7 @@ $conn->close();
             plugins: {
               legend: {
                 display: true,
-                position: 'right', // Moves the label/legend to the right
+                position: 'right', 
               },
               tooltip: {
                 enabled: true,
@@ -233,7 +231,7 @@ $conn->close();
             plugins: {
               legend: {
                 display: true,
-                position: 'right', // Moves the label/legend to the right
+                position: 'right', 
               },
               tooltip: {
                 enabled: true,
