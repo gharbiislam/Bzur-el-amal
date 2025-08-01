@@ -38,6 +38,6 @@ This platform was developed as part of a social responsibility initiative with a
 
 
 **Islem Gharbi**  
-🔗 [LinkedIn](https://www.linkedin.com/in/islem-gharbii/)  
+🔗 [Portfolio](https://gharbiislam.rf.gd/?i=1)  
 
 Thank you for visiting **Bzur Em Amal**! Together, we can make a difference.
