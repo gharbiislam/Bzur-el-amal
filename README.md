@@ -1,12 +1,12 @@
-# Bzur Em Amal
+# Bzur El Amal
 
-**Bzur Em Amal** is a community-driven social initiative platform dedicated to empowering individuals and providing support through various charitable activities and awareness campaigns. The platform connects volunteers, donors, and beneficiaries to promote positive change and sustainable development.
+**Bzur El Amal** is a community-driven social initiative platform dedicated to empowering individuals and providing support through various charitable activities and awareness campaigns. The platform connects volunteers, donors, and beneficiaries to promote positive change and sustainable development.
 
 ---
 
 ## 🚀 About the Project
 
-The goal of **Bzur Em Amal** is to create a seamless and interactive platform where users can participate in social projects, track charitable events, and contribute donations. The project focuses on building a strong community network, enhancing transparency, and facilitating collaboration among stakeholders.
+The goal of **Bzur El Amal** is to create a seamless and interactive platform where users can participate in social projects, track charitable events, and contribute donations. The project focuses on building a strong community network, enhancing transparency, and facilitating collaboration among stakeholders.
 
 This platform was developed as part of a social responsibility initiative with an emphasis on usability, accessibility, and real-world impact.
 
